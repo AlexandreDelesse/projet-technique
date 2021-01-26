@@ -1,0 +1,18 @@
+/* Import Bootstrap's variables and functions */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+/* Import variables */
+@import "variables";
+
+/* Boostrap Main SCSS */
+@import "~bootstrap/scss/bootstrap";
+
+/* Plugins */
+@import "~animate.css/animate.min.css";
+
+/* Core Styles */
+@import "reset";
+@import "sidebar";
+@import "navbar";
+@import "footer";
