@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col col-4 my-4" *ngFor="let campaign of campaigns">
+        <div class="card">
+          <div class="card-header">
+            <p>created at: {{ campaign.createdAt }}</p>
+            <h5 class="card-header">{{ campaign.title }}</h5>
+            <p>start at: {{ campaign.startAt | date: 'mediumDate' }} </p>
+            <p>end at: {{ campaign.endAt | date: 'mediumDate' }}</p>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">location: {{ campaign.location }}</h5>
+            <p>description : {{ campaign.description }}</p>
+            <p>capacity : {{ campaign.capacity }}</p>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-primary">Subscribe</button>
+              <button class="btn btn-danger" (click)="onDeleteCampaign(campaign)">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
