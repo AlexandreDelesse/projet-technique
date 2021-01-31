@@ -16,6 +16,6 @@ class Campaign extends Model
     }
 
     public function path() {
-        return route('campaigns.show', $this->slug);
+        return '/campaigns/' . $this->slug;
     }
 }

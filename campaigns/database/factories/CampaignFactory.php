@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Campaign;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CampaignFactory extends Factory
@@ -24,7 +25,7 @@ class CampaignFactory extends Factory
         $title = $this->faker->sentence;
         return [
             'title' =>$title,
-            'slug' => \Str::slug($title),
+            'slug' => Str::slug($title),
             'description' => $this->faker->text,
             'location' => $this->faker->numberBetween(1, 99),
             'capacity' => $this->faker->randomDigit
