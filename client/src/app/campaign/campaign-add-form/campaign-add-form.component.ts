@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {Campaign} from '../../models/Campaign';
+import { CampaignService } from '../../service/campaign.service';
+import {DatePipe, formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-campaign-add-form',
@@ -18,13 +21,28 @@ export class CampaignAddFormComponent implements OnInit {
     startAt: ['', Validators.required],
     title: ['', Validators.required]
   });
-  constructor(private formBuilder: FormBuilder ) { }
+  constructor(private formBuilder: FormBuilder,
+              private campaignService: CampaignService,
+              private datePipe: DatePipe) { }
 
   ngOnInit(): void {
   }
 
   onSubmitCampaignForm(): void {
-    // TODO create function to send data with POST
+    const campaign = new Campaign(
+      this.addCampaignForm.value.title,
+      this.addCampaignForm.value.description,
+      this.addCampaignForm.value.location,
+      this.addCampaignForm.value.startAt,
+      this.addCampaignForm.value.endAt,
+      this.addCampaignForm.value.capacity,
+      this.datePipe.transform(Date(), 'mediumDate'));
+
+    this.campaignService.addCampaign(campaign).subscribe(
+      (data) => { console.log(data); },
+      (error) => { console.log(error); }
+    );
+    this.addCampaignForm.reset();
   }
 
   onBackBtn(): void {

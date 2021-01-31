@@ -13,14 +13,27 @@ export class CampaignComponent implements OnInit {
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit(): void {
+    this.getCampaigns();
+  }
+
+  getCampaigns(): void{
     this.campaignService.getCampaigns().subscribe(
       (data) => {
         this.campaigns = data;
         console.log(this.campaigns);
       },
-    (error) => {
+      (error) => {
         console.log(error);
-    });
+      });
+  }
+
+  onDeleteCampaign(campaign: Campaign): void {
+    this.campaignService.deleteCampain(campaign).subscribe(
+      (data) => {
+        this.getCampaigns();
+      },
+      (error) => { console.log(error); }
+    );
   }
 
 }

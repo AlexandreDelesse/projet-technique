@@ -6,8 +6,8 @@ import {CampaignComponent} from './campaign/campaign.component';
 
 
 const routes: Routes = [
-  { path: 'addCampaignForm', component: CampaignAddFormComponent },
-  { path: 'home', component: CampaignComponent },
+  { path: 'admin/addCampaignForm', component: CampaignAddFormComponent },
+  { path: 'campaigns', component: CampaignComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', component: CampaignComponent}
 
