@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col" *ngFor="let campaign of campaigns">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-header">{{ campaign.title }}</h5>
+          <p>{{ campaign.startAt }} to {{ campaign.endAt }}</p>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ campaign.location }}</h5>
+          <p>{{ campaign.description }}</p>
+          <button class="btn btn-primary">Subscribe</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
