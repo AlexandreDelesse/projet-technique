@@ -1,0 +1,34 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: dondesang_network
+
+services:
+  campaigns:
+    image: nginx:stable-alpine
+    container_name: campaigns
+    ports:
+      - "8000:80"
+    volumes:
+      - ../../campaigns:/var/www/html/campaigns
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+    # PHP service need to be ready before our web server is initialized
+      - campaigns_php
+    networks: 
+      - default
+
+  campaigns_php:
+    build: 
+      context: .
+      dockerfile: php.dockerfile
+    container_name: campaigns_php
+    tty: true
+    volumes:
+      - ../../campaigns:/var/www/html/campaigns
+    ports:
+      - "9000:9000"
+    networks: 
+      - default
