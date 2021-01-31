@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateCampaignRequest;
+use App\Http\Requests\UpdateCampaignRequest;
+use Illuminate\Support\Str;
 
 class CampaignsController extends Controller
 {
@@ -20,19 +22,25 @@ class CampaignsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\CreateCampaignRequest  $request
+     * @return \App\Models\Campaign 
      */
-    public function store(Request $request)
+    public function store(CreateCampaignRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $data['slug'] = Str::slug($data['title']);
+
+        $campaign = Campaign::create($data);
+
+        return $campaign;
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Campaign  $campaign
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\Campaign  
      */
     public function show(Campaign $campaign)
     {
@@ -42,13 +50,17 @@ class CampaignsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CreateCampaignRequest  $request
      * @param  \App\Models\Campaign  $campaign
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\Campaign 
      */
-    public function update(Request $request, Campaign $campaign)
+    public function update(UpdateCampaignRequest $request, Campaign $campaign)
     {
-        //
+        $data = $request->validated();
+
+        $campaign->update($data);
+
+        return $campaign;
     }
 
     /**
@@ -59,6 +71,10 @@ class CampaignsController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        //
+        $campaign->delete();
+
+        return [
+            'success' => 'Campagne deleted successfully.'
+        ];
     }
 }

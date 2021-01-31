@@ -12,7 +12,7 @@ services:
     ports:
       - "8002:80"
     volumes:
-      - ../../messages:/var/www/html/messages
+      - ../../messages:/var/www/html
       - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
     # PHP service need to be ready before our web server is initialized
@@ -27,8 +27,19 @@ services:
     container_name: messages_php
     tty: true
     volumes:
-      - ../../messages:/var/www/html/messages
+      - ../../messages:/var/www/html
     ports:
       - "9002:9000"
     networks: 
+      - default
+
+  messages_composer:
+    image: composer:latest
+    container_name: messages_composer
+    volumes:
+      - ../../messages:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - messages_php
+    networks:
       - default

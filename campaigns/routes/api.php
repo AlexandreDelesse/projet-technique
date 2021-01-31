@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/campaigns', 'CampaignsController@index');
-Route::get('/campaigns/{campaign}', 'CampaignsController@show');
+Route::get('/campaigns', 'CampaignsController@index')->name('campaigns.index');
+Route::get('/campaigns/{campaign}', 'CampaignsController@show')->name('campaigns.show');
+Route::post('/campaigns', 'CampaignsController@store')->name('campaigns.store');
+Route::patch('/campaigns/{campaign}', 'CampaignsController@update')->name('campaigns.update');
+Route::delete('/campaigns/{campaign}', 'CampaignsController@destroy')->name('campaigns.destroy');

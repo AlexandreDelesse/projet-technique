@@ -14,4 +14,8 @@ class Campaign extends Model
     public function getRouteKeyName() {
         return 'slug';
     }
+
+    public function path() {
+        return route('campaigns.show', $this->slug);
+    }
 }

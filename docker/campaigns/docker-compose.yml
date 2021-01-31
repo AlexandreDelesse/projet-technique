@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ../../campaigns:/var/www/html/campaigns
+      - ../../campaigns:/var/www/html/
       - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
     # PHP service need to be ready before our web server is initialized
@@ -27,8 +27,19 @@ services:
     container_name: campaigns_php
     tty: true
     volumes:
-      - ../../campaigns:/var/www/html/campaigns
+      - ../../campaigns:/var/www/html/
     ports:
       - "9000:9000"
     networks: 
+      - default
+    
+  campaigns_composer:
+    image: composer:latest
+    container_name: campaigns_composer
+    volumes:
+      - ../../campaigns:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - campaigns_php
+    networks:
       - default
