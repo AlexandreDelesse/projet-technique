@@ -25,9 +25,12 @@ services:
   # Run database migrations
   kong-migrations-up:
     image: kong:latest
-    command: kong migrations bootstrap
+    command: "kong migrations bootstrap"
     depends_on:
       - kong-database
+    links:
+      - kong-database
+    restart: on-failure
     environment:
       - KONG_DATABASE=postgres
       - KONG_PG_HOST=kong-database
@@ -47,6 +50,7 @@ services:
       - "127.0.0.1:8444:8444"
     depends_on:
       - kong-database
+      - kong-migrations-up
     restart: on-failure
     environment:
       - KONG_DATABASE=postgres
