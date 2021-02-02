@@ -1,0 +1,63 @@
+version: '3.7'
+
+networks:
+  default:
+    external:
+      name: dondesang_network
+
+services:
+  kong-database:
+    image: postgres:9.6
+    container_name: kong-database
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+      - POSTGRES_PASSWORD=kong
+    restart: on-failure
+    tty: true
+    volumes:
+      - ./postgressql:/var/lib/postgresql/data
+    networks: 
+      - default
+  
+  # Run database migrations
+  kong-migrations-up:
+    image: kong:latest
+    command: kong migrations bootstrap
+    depends_on:
+      - kong-database
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_USER=kong
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    networks: 
+      - default
+
+  kong:
+    image: kong:latest
+    container_name: kong
+    ports: 
+      - "8000:8000"
+      - "8443:8443"
+      - "127.0.0.1:8001:8001"
+      - "127.0.0.1:8444:8444"
+    depends_on:
+      - kong-database
+    restart: on-failure
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_USER=kong
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    networks: 
+      - default

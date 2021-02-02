@@ -1,7 +1,6 @@
 version: '3'
 
 networks:
-  # Use external network, this network must be created before building this file
   default:
     external:
       name: dondesang_network
