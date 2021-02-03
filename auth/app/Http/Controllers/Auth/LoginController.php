@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\Kong;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -29,12 +33,21 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Create a new controller instance.
+     * Send the response after the user was authenticated.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __construct()
+    protected function sendLoginResponse(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $this->clearLoginAttempts($request);
+
+        // Add consumer
+        Kong::createConsumer($request->email, (string) $request->user()->id);
+        Kong::generatekey($request->email);
+
+        return response()->json([
+            'message' => 'Successfully logged in.'
+        ], 204);
     }
 }
