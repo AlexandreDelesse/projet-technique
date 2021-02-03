@@ -1,0 +1,45 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: dondesang_network
+
+services:
+  auth:
+    image: nginx:stable-alpine
+    container_name: auth
+    ports:
+      - "8006:80"
+    volumes:
+      - ../../auth:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+    # PHP service need to be ready before our web server is initialized
+      - auth_php
+    networks: 
+      - default
+
+  auth_php:
+    build: 
+      context: .
+      dockerfile: php.dockerfile
+    container_name: auth_php
+    tty: true
+    volumes:
+      - ../../auth:/var/www/html
+    ports:
+      - "9006:9000"
+    networks: 
+      - default
+
+  auth_composer:
+    image: composer:latest
+    container_name: auth_composer
+    volumes:
+      - ../../auth:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - auth_php
+    networks:
+      - default

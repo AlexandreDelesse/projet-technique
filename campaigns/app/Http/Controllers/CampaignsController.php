@@ -27,6 +27,7 @@ class CampaignsController extends Controller
      */
     public function store(CreateCampaignRequest $request)
     {
+        return request()->headers;
         $data = $request->validated();
 
         $data['slug'] = Str::slug($data['title']);
