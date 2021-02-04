@@ -14,17 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes([
-    'logout' => false, // loging out is handled by API gateway
-    'confirm' => false
-]);
-
 Route::group(['middleware' => 'guest'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::post('register', 'Auth\RegisterController@register')->name('register');
 
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
 
     // Route::post('email/verify/{user}', 'VerificationController@verify')->name('verification.verify');
     // Route::post('email/resend', 'VerificationController@resend');

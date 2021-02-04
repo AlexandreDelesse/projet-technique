@@ -41,10 +41,7 @@ class Kong
             $data['key'] = $key;
         }
             
-        $response =  Http::post(self::KONG_URL . '/consumers', [
-            'username' => $username,
-            'custom_id' => $custom_id
-        ]);
+        $response =  Http::post(self::KONG_URL . '/consumers', $data);
 
         if($response->status() === 201) {
             return $response;

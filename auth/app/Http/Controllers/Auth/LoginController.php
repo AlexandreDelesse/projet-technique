@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Kong;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -44,10 +42,11 @@ class LoginController extends Controller
 
         // Add consumer
         Kong::createConsumer($request->email, (string) $request->user()->id);
-        Kong::generatekey($request->email);
+        $response = Kong::generatekey($request->email);
 
         return response()->json([
-            'message' => 'Successfully logged in.'
-        ], 204);
+            'message' => 'Successfully logged in.',
+            'key' => $response->json()
+        ], 201);
     }
 }

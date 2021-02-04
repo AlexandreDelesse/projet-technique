@@ -51,7 +51,7 @@ class LoginTest extends TestCase
             ]
         );
 
-        $response->assertStatus(204);
+        $response->assertStatus(201);
         
         Kong::deleteConsumer($user->email);
     }

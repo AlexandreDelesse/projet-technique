@@ -15,7 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    Kong::createConsumer('test', '1');
-    return Kong::generatekey('test');
     return view('welcome');
 });
