@@ -74,7 +74,7 @@ class CampaignsController extends Controller
         $campaign->delete();
 
         return [
-            'success' => 'Campagne deleted successfully.'
+            'success' => 'Campaign deleted successfully.'
         ];
     }
 }

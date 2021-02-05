@@ -28,7 +28,7 @@ class Kong
      *
      * @return Illuminate\Http\Client\Response
      */
-    public static function createConsumer(string $username, string $custom_id, string $key = null) {
+    public static function createConsumer(string $username, string $custom_id) {
         if($response = self::consumerExists($username)) {
             return $response;
         }
@@ -36,11 +36,7 @@ class Kong
             'username' => $username,
             'custom_id' => $custom_id
         ];
-
-        if($key) {
-            $data['key'] = $key;
-        }
-            
+ 
         $response =  Http::post(self::KONG_URL . '/consumers', $data);
 
         if($response->status() === 201) {
