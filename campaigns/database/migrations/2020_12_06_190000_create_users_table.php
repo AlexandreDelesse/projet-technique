@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->date('birthdate');
-            $table->text('adress');
-            $table->string('phone');
+            $table->date('birthdate')->nullable();
+            $table->text('adress')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('bloodgroup_id')->nullable()->constrained()->onCascade('set null');
-            $table->unsignedInteger('type');
+            $table->unsignedInteger('type')->default(0);
             $table->string('gender');
             $table->string('avatar')->nullable();
             $table->string('email')->unique();

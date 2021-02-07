@@ -20,7 +20,6 @@ class LoginTest extends TestCase
 
         $user = User::factory()->create();
 
-        // if request has apiKey, it means that it has been validated by gateway
         $response = $this->postJson(route('login'), 
                 [
                     'email' => $user->email,
@@ -40,7 +39,7 @@ class LoginTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory([
-            'id' => 9999999 // For testing we use fake id to avoid conflict we any existing id.
+            'id' => 9999999
         ])->create();
 
         $response = $this->postJson(

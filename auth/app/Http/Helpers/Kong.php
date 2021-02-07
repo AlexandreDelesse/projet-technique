@@ -87,4 +87,15 @@ class Kong
             default: throw new Exception('Can\'t delete consumer ' . $username . '.');
         }
     }
+    
+    /**
+     * Get keys associated with a consumer
+     *
+     * @param  string $username
+     * @return Illuminate\Http\Client\Response|Array
+     */
+    public static function getConsumerKeys(string $username) {
+        $response= Http::get(self::KONG_URL . '/consumers/' . $username . '/key-auth');
+        return $response;
+    }
 }

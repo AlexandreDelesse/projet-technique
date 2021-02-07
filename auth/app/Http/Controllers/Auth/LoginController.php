@@ -42,11 +42,17 @@ class LoginController extends Controller
 
         // Add consumer
         Kong::createConsumer($request->email, (string) $request->user()->id);
-        $response = Kong::generatekey($request->email);
+        // Check if user has key already
+        $response = Kong::getConsumerKeys($request->email);
+        if ($response->status() === 200 && count($response['data'])) {
+            $key = $response['data'][0];
+        } else {
+            $key = Kong::generatekey($request->email);
+        }
 
         return response()->json([
             'message' => 'Successfully logged in.',
-            'key' => $response->json()
+            'key' => $key
         ], 201);
     }
 }

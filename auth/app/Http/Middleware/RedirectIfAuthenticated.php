@@ -19,7 +19,6 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         if ($request->hasHeader('apiKey')) {
-            // Request has been authenticated by Kong gateway
             return response()->json(['error' => 'Already authenticated.'], 400);
         }
 
