@@ -59,7 +59,9 @@ class CampaignsController extends Controller
      */
     public function update(UpdateCampaignRequest $request, Campaign $campaign)
     {
-        $this->authorize('manage');
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
 
         $campaign->update($data);
@@ -75,7 +77,9 @@ class CampaignsController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        $this->authorize('manage');
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $campaign->delete();
 
         return [
