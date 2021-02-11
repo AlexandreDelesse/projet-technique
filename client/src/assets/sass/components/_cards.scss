@@ -1,0 +1,67 @@
+.card {
+	color: inherit !important; // Remove blue color for cards as links.
+	text-decoration: none !important; // Remove underlying on hover for links.
+	border-radius: $border-radius;
+	position: relative;
+
+	@include transition(0.3s);
+
+	&:hover {
+		box-shadow: 0px 6px 8px 3px rgba(0, 0, 0, 0.1) !important;
+
+		.card-footer {
+			opacity: 1;
+		}
+	}
+
+	&.pinned {
+		.card-action.pin-action {
+			color: #fff;
+			background: $gray-900;
+		}
+	}
+
+	.card-body {
+		.card-info {
+			color: $text-secondary;
+			font-size: 0.75rem;
+		}
+	}
+
+	.card-title {
+		color: $text-secondary;
+	}
+
+	.card-footer {
+		background: none;
+		border: none;
+		padding-top: 0;
+		padding-bottom: 10px;
+		opacity: 0;
+		@include transition(0.3s);
+
+		.card-action {
+			cursor: pointer;
+			color: inherit;
+			margin: 0 2px;
+			font-size: 0.75rem;
+			display: inline-flex;
+			height: 30px;
+			width: 30px;
+			border-radius: 100%;
+			align-items: center;
+			justify-content: center;
+			@include transition(0.3s);
+			&:hover {
+				background: rgba(0, 0, 0, 0.05);
+
+				&.pin-action {
+					color: inherit !important;
+				}
+				&:not(.pin-action) {
+					color: $primary;
+				}
+			}
+		}
+	}
+}

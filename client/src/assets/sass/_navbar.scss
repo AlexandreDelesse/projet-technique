@@ -1,0 +1,28 @@
+.navbar {
+	height: $navbar-height;
+	position: sticky;
+	top: 0;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	z-index: 999;
+
+	.navbar-nav {
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.user-dropdown {
+		#userDropdown {
+			display: flex;
+			align-items: center;
+			&:after {
+				display: none;
+			}
+		}
+	}
+
+	.avatar {
+		width: 35px;
+		height: 35px;
+		margin-left: 10px;
+	}
+}

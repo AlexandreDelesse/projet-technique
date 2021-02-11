@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CampaignAddFormComponent } from './campaign/campaign-add-form/campaign-add-form.component';
 
 import { CampaignService } from './service/campaign.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CampaignService } from './service/campaign.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [DatePipe, CampaignService],
   bootstrap: [AppComponent]
