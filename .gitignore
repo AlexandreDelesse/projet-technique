@@ -1,2 +1,2 @@
-/docker/database/mysql
 /docker/kong/postgressql
+/docker/database/mysql
