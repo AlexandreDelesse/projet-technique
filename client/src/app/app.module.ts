@@ -13,6 +13,7 @@ import { CampaignAddFormComponent } from './campaign/campaign-add-form/campaign-
 
 import { CampaignService } from './service/campaign.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CampaignComponent,
     NavbarComponent,
     CampaignAddFormComponent,
+    PageNotFoundComponentComponent,
   ],
   imports: [
     BrowserModule,
