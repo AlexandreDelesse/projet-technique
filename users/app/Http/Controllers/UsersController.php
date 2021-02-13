@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -47,25 +48,18 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateUserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user ->firstname = $request-> firstname;
-        $user ->lastname = $request-> lastname;
-        $user ->birthdate = $request-> birthdate;
-        $user ->adress = $request-> adress;
-        $user ->phone = $request-> phone;
-        $user ->type = $request-> type;
-        $user ->gender = $request-> gender;
-        $user ->avatar = $request-> avatar;
-        $user ->email = $request-> email;
-        if($user -> save())
-        {
-            return new $user;
-        }
+        $data = $request->validated();
+
+        $user->update($data);
+
+        return $user;
+        
     }
 
     /**
