@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder} from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {Campaign} from '../../models/Campaign';
-import { CampaignService } from '../../service/campaign.service';
-import {DatePipe, formatDate} from '@angular/common';
+import { Campaign } from '../../models/Campaign';
+import { CampaignService } from '../../services/campaigns/campaigns.service';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-campaign-add-form',
   templateUrl: './campaign-add-form.component.html',
-  styleUrls: ['./campaign-add-form.component.scss']
+  styleUrls: ['./campaign-add-form.component.scss'],
 })
 export class CampaignAddFormComponent implements OnInit {
-
   addCampaignForm = this.formBuilder.group({
     capacity: ['', Validators.required],
     createdAt: [''],
@@ -19,14 +18,15 @@ export class CampaignAddFormComponent implements OnInit {
     description: ['', Validators.required],
     location: ['', Validators.required],
     startAt: ['', Validators.required],
-    title: ['', Validators.required]
+    title: ['', Validators.required],
   });
-  constructor(private formBuilder: FormBuilder,
-              private campaignService: CampaignService,
-              private datePipe: DatePipe) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private campaignService: CampaignService,
+    private datePipe: DatePipe
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmitCampaignForm(): void {
     const campaign = new Campaign(
@@ -36,11 +36,16 @@ export class CampaignAddFormComponent implements OnInit {
       this.addCampaignForm.value.startAt,
       this.addCampaignForm.value.endAt,
       this.addCampaignForm.value.capacity,
-      this.datePipe.transform(Date(), 'mediumDate'));
+      this.datePipe.transform(Date(), 'mediumDate')
+    );
 
     this.campaignService.addCampaign(campaign).subscribe(
-      (data) => { console.log(data); },
-      (error) => { console.log(error); }
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
     );
     this.addCampaignForm.reset();
   }
@@ -48,5 +53,4 @@ export class CampaignAddFormComponent implements OnInit {
   onBackBtn(): void {
     // TODO use navigation to go back to menu
   }
-
 }

@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CampaignService } from '../service/campaign.service';
-import {Campaign} from '../models/Campaign';
+import { CampaignService } from '../services/campaigns/campaigns.service';
+import { Campaign } from '../models/Campaign';
 
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.scss']
+  styleUrls: ['./campaign.component.scss'],
 })
 export class CampaignComponent implements OnInit {
-
   campaigns?: Campaign[];
-  constructor(private campaignService: CampaignService) { }
+  constructor(private campaignService: CampaignService) {}
 
   ngOnInit(): void {
     this.getCampaigns();
   }
 
-  getCampaigns(): void{
+  getCampaigns(): void {
     this.campaignService.getCampaigns().subscribe(
       (data) => {
         this.campaigns = data;
@@ -24,7 +23,8 @@ export class CampaignComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }
 
   onDeleteCampaign(campaign: Campaign): void {
@@ -32,8 +32,9 @@ export class CampaignComponent implements OnInit {
       (data) => {
         this.getCampaigns();
       },
-      (error) => { console.log(error); }
+      (error) => {
+        console.log(error);
+      }
     );
   }
-
 }

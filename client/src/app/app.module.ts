@@ -11,9 +11,10 @@ import { CampaignComponent } from './campaign/campaign.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CampaignAddFormComponent } from './campaign/campaign-add-form/campaign-add-form.component';
 
-import { CampaignService } from './service/campaign.service';
+import { CampaignService } from './services/campaigns/campaigns.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
     NavbarComponent,
     CampaignAddFormComponent,
     PageNotFoundComponentComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,9 +31,9 @@ import { PageNotFoundComponentComponent } from './page-not-found-component/page-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [DatePipe, CampaignService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
