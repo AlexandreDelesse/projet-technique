@@ -28,9 +28,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
-        npm install -g @angular/cli
-        npm install
-        ng build --prod
+        ls -l
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
