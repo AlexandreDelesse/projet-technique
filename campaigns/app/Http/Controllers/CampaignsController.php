@@ -27,13 +27,16 @@ class CampaignsController extends Controller
      */
     public function store(CreateCampaignRequest $request)
     {
-        $data = $request->validated();
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
+        $data = $request->validated();  
 
         $data['slug'] = Str::slug($data['title']);
 
         $campaign = Campaign::create($data);
 
-        return $campaign;
+        return response()->json($campaign, 201);
     }
 
     /**
@@ -56,6 +59,9 @@ class CampaignsController extends Controller
      */
     public function update(UpdateCampaignRequest $request, Campaign $campaign)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
 
         $campaign->update($data);
@@ -71,6 +77,9 @@ class CampaignsController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $campaign->delete();
 
         return [

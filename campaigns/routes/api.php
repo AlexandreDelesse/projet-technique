@@ -17,5 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/campaigns', 'CampaignsController@index')->name('campaigns.index');
 Route::get('/campaigns/{campaign}', 'CampaignsController@show')->name('campaigns.show');
 Route::post('/campaigns', 'CampaignsController@store')->name('campaigns.store');
+// Route::post('/campaigns', function() {
+//     return auth()->user();
+// });
 Route::patch('/campaigns/{campaign}', 'CampaignsController@update')->name('campaigns.update');
 Route::delete('/campaigns/{campaign}', 'CampaignsController@destroy')->name('campaigns.destroy');
