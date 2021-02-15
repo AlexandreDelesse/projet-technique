@@ -30,7 +30,7 @@ jobs:
     - run: |
         cd client
         npm install
-        ng build --prod
+        npm run build --prod
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
