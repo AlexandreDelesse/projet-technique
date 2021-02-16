@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row my-3">
+    <div class="col">
+      <button class="btn btn-secondary" (click)="onBackBtn()">
+        Back to menu
+      </button>
+    </div>
+  </div>
+
+  <h4 class="display-4">Add a campaign</h4>
+
+  <div class="row my-4">
+    <div class="col-4">
+      <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmitCampaignForm()">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+            placeholder="title"
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="location"
+            formControlName="location"
+            placeholder="location"
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <textarea
+            class="form-control"
+            id="description"
+            formControlName="description"
+            placeholder="description"
+            autocomplete="off"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <input
+            type="number"
+            class="form-control"
+            id="capacity"
+            formControlName="capacity"
+            placeholder="capacity"
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="startAt" class="col-form-label">start at : </label>
+          <input
+            type="date"
+            class="form-control"
+            id="startAt"
+            formControlName="startAt"
+            placeholder="startAt"
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="endAt" class="col-form-label">end at : </label>
+          <input
+            type="date"
+            class="form-control"
+            id="endAt"
+            formControlName="endAt"
+            placeholder="endAt"
+            autocomplete="off"
+          />
+        </div>
+        <button
+          class="btn btn-success mb-4"
+          type="submit"
+          [disabled]="addCampaignForm.invalid"
+        >
+          Add campaign
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

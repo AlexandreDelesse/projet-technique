@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Campaign } from '../../models/Campaign';
-import { CampaignService } from '../../services/campaigns/campaigns.service';
+import { Campaign } from '@app/models/Campaign';
+import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { DatePipe, formatDate } from '@angular/common';
 
 @Component({

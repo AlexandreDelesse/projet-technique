@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { CampaignComponent } from './campaign/campaign.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { CampaignAddFormComponent } from './campaign/campaign-add-form/campaign-add-form.component';
+import { CampaignComponent } from './views/campaigns/campaign.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { CampaignAddFormComponent } from './views/campaigns/campaign-add-form/campaign-add-form.component';
 
 import { CampaignService } from './services/campaigns/campaigns.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
-import { LoginComponent } from './auth/login/login.component';
+import { PageNotFoundComponentComponent } from './views/page-not-found-component/page-not-found-component.component';
+import { LoginComponent } from './views/auth/login/login.component';
+import { httpInterceptorProviders } from './interceptors';
+import { RegisterComponent } from './views/auth/register/register.component';
+import { PasswordConfirmValidatorDirective } from './directives/password-confirm-validator.directive';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { LoginComponent } from './auth/login/login.component';
     CampaignAddFormComponent,
     PageNotFoundComponentComponent,
     LoginComponent,
+    RegisterComponent,
+    PasswordConfirmValidatorDirective,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,7 @@ import { LoginComponent } from './auth/login/login.component';
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [DatePipe, CampaignService],
+  providers: [httpInterceptorProviders, DatePipe, CampaignService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -45,14 +45,15 @@ class LoginController extends Controller
         // Check if user has key already
         $response = Kong::getConsumerKeys($request->email);
         if ($response->status() === 200 && count($response['data'])) {
-            $key = $response['data'][0];
+            $key = $response['data'][0]['key'];
         } else {
-            $key = Kong::generatekey($request->email);
+            $key = Kong::generatekey($request->email)['key'];
         }
 
         return response()->json([
             'message' => 'Successfully logged in.',
-            'key' => $key
+            'key' => $key,
+            'user' => $request->user()->refresh()
         ], 201);
     }
 }

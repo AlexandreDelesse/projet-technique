@@ -21,6 +21,13 @@ class User extends Authenticatable
         'lastname',
         'name',
         'email',
+        'type',
+        'birthdate',
+        'gender',
+        'bloodgroup_id',
+        'avatar',
+        'phone',
+        'adress',
         'password',
     ];
 
