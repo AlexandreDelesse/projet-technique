@@ -7,3 +7,4 @@
 3. Start the database service : ``cd docker/database && docker-compose up -d --build``.
 4. Start kong gateway: ``cd docker/kong && docker-compose up -d --build``
 5. Refer to each microservice readme file to start it.
+6. Refer to client readme to start it
