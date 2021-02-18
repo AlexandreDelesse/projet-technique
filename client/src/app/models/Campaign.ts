@@ -3,12 +3,12 @@ export class Campaign {
     public title: string,
     public description: string,
     public location: string,
-    public startAt: Date,
-    public endAt: Date,
+    public start_at: Date,
+    public end_at: Date,
     public capacity: number,
-    public createdAt: string | null,
+    public created_at: string | null,
     public slug?: string,
-    public updatedAt?: Date,
+    public updated_at?: Date,
     public id?: number
   ) {}
 }

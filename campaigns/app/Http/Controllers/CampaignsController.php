@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Http\Requests\CreateCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
+use App\Models\User;
+use App\Notifications\CampaignCreated;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Notification;
 
 class CampaignsController extends Controller
 {
@@ -35,6 +38,11 @@ class CampaignsController extends Controller
         $data['slug'] = Str::slug($data['title']);
 
         $campaign = Campaign::create($data);
+
+        Notification::send(
+            User::where('type', 0)->get(), 
+            new CampaignCreated($campaign)
+        );
 
         return response()->json($campaign, 201);
     }
