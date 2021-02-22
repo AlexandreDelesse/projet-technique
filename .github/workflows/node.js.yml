@@ -31,7 +31,7 @@ jobs:
         cd client
         npm install
         npm run build -- --prod
-        npm test -- --configuration=ci
+        npm test
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
