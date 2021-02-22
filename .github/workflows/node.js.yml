@@ -27,11 +27,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
+    - name: install dependenties
+      run: |
         cd client
         npm install
-        npm run build -- --prod
-        npm test -- --configuration=ci
+    - name: run tests with karma
+      run: npm test -- --configuration=ci
+    - name: run build prod
+      run: npm build -- --prod --base-href="don-du-sang"
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
