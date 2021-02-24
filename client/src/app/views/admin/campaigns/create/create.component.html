@@ -1,15 +1,6 @@
 <div class="container">
-  <div class="row my-3">
-    <div class="col">
-      <button class="btn btn-secondary" (click)="onBackBtn()">
-        Back to menu
-      </button>
-    </div>
-  </div>
-
-  <h4 class="display-4">Add a campaign</h4>
-
-  <div class="row my-4">
+  <h3 class="my-3">Add a campaign</h3>
+  <div class="row">
     <div class="col-4">
       <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmitCampaignForm()">
         <div class="mb-3">
@@ -52,33 +43,40 @@
           />
         </div>
         <div class="mb-3">
-          <label for="startAt" class="col-form-label">start at : </label>
+          <label for="start_at" class="col-form-label">start at : </label>
           <input
             type="date"
             class="form-control"
-            id="startAt"
-            formControlName="startAt"
-            placeholder="startAt"
+            id="start_at"
+            formControlName="start_at"
+            placeholder="start_at"
             autocomplete="off"
           />
         </div>
         <div class="mb-3">
-          <label for="endAt" class="col-form-label">end at : </label>
+          <label for="end_at" class="col-form-label">end at : </label>
           <input
             type="date"
             class="form-control"
-            id="endAt"
-            formControlName="endAt"
-            placeholder="endAt"
+            id="end_at"
+            formControlName="end_at"
+            placeholder="end_at"
             autocomplete="off"
           />
         </div>
         <button
-          class="btn btn-success mb-4"
+          class="btn btn-primary w-100"
           type="submit"
-          [disabled]="addCampaignForm.invalid"
+          [disabled]="isLoading"
         >
-          Add campaign
+          <span *ngIf="!isLoading">Add campaign</span>
+          <div
+            class="spinner-border spinner-border-sm"
+            role="status"
+            *ngIf="isLoading"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
         </button>
       </form>
     </div>

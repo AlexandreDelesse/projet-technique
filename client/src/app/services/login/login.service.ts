@@ -1,13 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/user';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   baseUrl: string = 'http://127.0.0.1:8000/api';
+
+  private currentUserSource: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
+    User.getUserFromLocalStorage()
+  );
+  currentUser = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -39,8 +44,13 @@ export class LoginService {
     });
   }
 
+  updateCurrentUser(user: User | null) {
+    this.currentUserSource.next(user);
+  }
+
   logout() {
     localStorage.removeItem('apiKey');
     localStorage.removeItem('user');
+    this.updateCurrentUser(null);
   }
 }

@@ -11,15 +11,13 @@ import { error } from 'protractor';
 })
 export class NavbarComponent implements OnInit {
   isLoading = true;
-  user: User | undefined;
+  user: any;
   constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
-    let user = User.getUserFromLocalStorage();
-    if (user) {
+    this.loginService.currentUser.subscribe((user) => {
       this.user = user;
-    }
-    this.isLoading = false;
+    });
   }
 
   logout(event: any) {
