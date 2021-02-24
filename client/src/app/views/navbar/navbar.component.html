@@ -1,15 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg header">
   <div class="collapse navbar-collapse">
     <div class="navbar-nav">
-      <a class="nav-link" aria-current="page" routerLink="campaigns">Home</a>
-      <a class="nav-link" aria-current="page" routerLink="campaigns">
-        Campaigns
-      </a>
-      <a class="nav-link" aria-current="page" routerLink="campaigns">Blog</a>
-      <a class="nav-link" aria-current="page" routerLink="campaigns">FAQ</a>
-      <a class="nav-link" aria-current="page" routerLink="campaigns">
-        Contact us
-      </a>
+      <div class="nav-item px-2">
+        <a class="nav-link" aria-current="page" routerLink="campaigns"
+          >Accueil</a
+        >
+      </div>
+      <div class="nav-item px-2">
+        <a class="nav-link" aria-current="page" routerLink="campaigns">
+          Campagnes
+        </a>
+      </div>
+      <div class="nav-item px-2">
+        <a class="nav-link" aria-current="page" routerLink="campaigns">Blog</a>
+      </div>
+      <div class="nav-item px-2">
+        <a class="nav-link" aria-current="page" routerLink="campaigns">FAQ</a>
+      </div>
+      <div class="nav-item px-2">
+        <a class="nav-link" aria-current="page" routerLink="campaigns"
+          >Contact</a
+        >
+      </div>
     </div>
   </div>
   <div class="d-flex" *ngIf="user; else guest">
@@ -40,9 +52,11 @@
     </div>
   </div>
   <ng-template #guest>
-    <a routerLink="register" role="button" class="btn btn-link">Register</a>
-    <a routerLink="login" role="button" class="btn btn-outline-secondary">
-      Login
-    </a>
+    <div class="d-flex auth-btns">
+      <a routerLink="register" role="button" class="btn btn-link">Register</a>
+      <a routerLink="login" role="button" class="btn btn-outline-primary">
+        Login
+      </a>
+    </div>
   </ng-template>
 </nav>
