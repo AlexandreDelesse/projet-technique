@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Campaign;
 use App\Http\Requests\CreateCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
