@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CommentsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/comments' , [CommentsController::class,'index']);
+Route::get('/comments/{comment}', [CommentsController::class,'show']);
+Route::post('/comments',[CommentsController::class,'store']);
+Route::patch('/comments/{comment}', [CommentsController::class,'update']);
+Route::delete('/comments/{comment}',[CommentsController::class,'destroy']);
