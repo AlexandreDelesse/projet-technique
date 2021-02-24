@@ -1,18 +1,41 @@
-.user-dropdown {
-  #userDropdown {
-    display: flex;
-    align-items: center;
-    &:after {
-      display: none;
+.header {
+  background: #fff;
+  box-shadow: inset 0 -1px 0 $border-color;
+
+  .nav-link {
+    color: $text-secondary;
+    font-weight: 500;
+    font-size: $font-size-sm;
+    @include transition(0.3s);
+
+    &:hover {
+      color: $text-primary;
     }
   }
 
-  .avatar {
-    width: 35px;
-    height: 35px;
-    margin-left: 10px;
-    background-position: center;
-    background-size: cover;
-    border-radius: 100%;
+  .auth-btns {
+    .btn {
+      font-weight: 500;
+      font-size: $font-size-sm;
+    }
+  }
+
+  .user-dropdown {
+    #userDropdown {
+      display: flex;
+      align-items: center;
+      &:after {
+        display: none;
+      }
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+      margin-left: 10px;
+      background-position: center;
+      background-size: cover;
+      border-radius: 100%;
+    }
   }
 }

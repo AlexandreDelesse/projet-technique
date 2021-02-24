@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
-import { Campaign } from '@app/models/Campaign';
+import { Campaign } from '@app/models/campaign';
+import { faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-campaign',
@@ -10,6 +11,9 @@ import { Campaign } from '@app/models/Campaign';
 export class CampaignComponent implements OnInit {
   campaigns?: Campaign[];
   constructor(private campaignService: CampaignService) {}
+
+  faMapMarkerAlt = faMapMarkerAlt;
+  faCalendar = faCalendar;
 
   ngOnInit(): void {
     this.getCampaigns();
