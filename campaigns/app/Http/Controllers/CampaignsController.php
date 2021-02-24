@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Campaign;
+
 use App\Http\Requests\CreateCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
 use App\Models\User;
@@ -29,7 +30,7 @@ class CampaignsController extends Controller
      */
     public function store(CreateCampaignRequest $request)
     {
-        if (!auth()->user()->isAdmin()) {
+        if (!auth()->user()->is_Admin()) {
             abort(403);
         }
         $data = $request->validated();  

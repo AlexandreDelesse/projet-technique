@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateBlogRequest;
-use App\Http\Requests\UpdateBlogRequest;
-use App\Models\Post;
-
-class PostsController extends Controller
+use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Comment;
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,22 +14,22 @@ class PostsController extends Controller
      */
     public function index()
     {
-       // return Post::latest()->get();
-       $posts = Post::all();
-       return $posts;
+        
+        $comments = Comment::all();
+        return $comments;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\CreateBlogRequest  $request
+     * @param  \Illuminate\Http\CreateCommentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateBlogRequest $request)
+    public function store(CreateCommentRequest $request)
     {
         $data = $request->validated();
  
-        return Post::create($data);
+        return Comment::create($data);
     }
 
     /**
@@ -38,37 +37,36 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Comment $comment)
     {
-        return $post;
+        return $comment;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateBlogRequest  $request
-     * @param  \App\Models\Post  $post
+     * @param  \Illuminate\Http\UpdateCommentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBlogRequest $request, Post $post)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
         $data = $request->validated();
 
-        $post->update($data);
+        $comment->update($data);
 
-        return $post;
+        return $comment;
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
-        $post->delete();
+        $comment->delete();
         return [
-         'success' => 'Post deleted successfully.'
+         'success' => 'Comment deleted successfully.'
                ];
     }
 }
