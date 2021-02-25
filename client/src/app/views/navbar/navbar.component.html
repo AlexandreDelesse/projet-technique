@@ -36,7 +36,7 @@
         {{ user.getFullName() }}
         <div
           class="avatar"
-          style="background-image: url('{{ user.avatar }}');"
+          [style.background-image]="'url(' + user.avatar + ')'"
         ></div>
       </a>
       <div
@@ -44,10 +44,20 @@
         aria-labelledby="userDropdown"
         class="dropdown-menu dropdown-menu-right"
       >
-        <a ngbDropdownItem href="#" (click)="$event.preventDefault()">
-          My Profile
+        <a
+          ngbDropdownItem
+          routerLink="/dashboard"
+          (click)="$event.preventDefault()"
+        >
+          Dashboard
         </a>
-        <a ngbDropdownItem href="#" (click)="logout($event)">Logout</a>
+        <a
+          ngbDropdownItem
+          href="#"
+          (click)="logout($event)"
+          class="text-primary"
+          >Logout</a
+        >
       </div>
     </div>
   </div>

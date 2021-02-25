@@ -22,9 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->foreignId('bloodgroup_id')->nullable()->constrained()->onCascade('set null');
             $table->unsignedInteger('type')->default(0);
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
+            $table->foreignId('adress_id')->nullable()->constrained()->onCascade('set null');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

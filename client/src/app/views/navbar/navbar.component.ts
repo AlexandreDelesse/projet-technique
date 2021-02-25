@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@app/models/user';
 import { LoginService } from '@app/services/login/login.service';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-navbar',

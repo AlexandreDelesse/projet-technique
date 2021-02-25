@@ -30,9 +30,10 @@ class CampaignsController extends Controller
      */
     public function store(CreateCampaignRequest $request)
     {
-        if (!auth()->user()->is_Admin()) {
+        if (!auth()->user()->isAdmin()) {
             abort(403);
         }
+        
         $data = $request->validated();  
 
         $data['slug'] = Str::slug($data['title']);

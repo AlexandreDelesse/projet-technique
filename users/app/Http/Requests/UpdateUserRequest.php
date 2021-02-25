@@ -16,24 +16,22 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
+            'firstname' => 'sometimes|string',
+            'lastname' => 'sometimes|string',
             'birthdate' => 'sometimes|date',
             'adress' => 'sometimes|string',
             'phone' => 'sometimes',
-            'bloodgroup_id'=> 'sometimes|exists:bloodgroup,id',
+            'bloodgroup_id' => 'sometimes|exists:bloodgroups,id',
             'type' => [
-                'required',
+                'sometimes',
                 Rule::in(['0', '1'])
             ],
             'gender' => [
-                'required',
+                'sometimes',
                 Rule::in(['Male', 'Female'])
             ],
             'avatar' => 'sometimes|url',
-            'email' => 'required|email',
-            'password'=>'required|min:8'
-
+            'email' => 'sometimes|email',
         ];
     }
 }

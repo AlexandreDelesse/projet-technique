@@ -19,7 +19,8 @@ class CreateCampaignRequest extends FormRequest
             'location' => 'required|string',
             'start_at' => 'required|date',
             'end_at' => 'required|date|after:start_at',
-            'capacity' => 'required|integer'
+            'capacity' => 'required|integer',
+            'file_id' => 'required|exists:files,id'
         ];
     }
 }

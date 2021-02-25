@@ -1,19 +1,15 @@
-.font-xs {
-  font-size: $font-xs;
-}
+.avatar {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100%;
+  background-color: $border-color;
+  box-shadow: inset 0 -1px 0 $border-color;
 
-.font-sm {
-  font-size: $font-sm;
-}
-
-.font-m {
-  font-size: $font-m;
-}
-
-.font-l {
-  font-size: $font-l;
-}
-
-.font-xl {
-  font-size: $font-xl;
+  &.avatar-big {
+    width: 150px;
+    height: 150px;
+  }
 }

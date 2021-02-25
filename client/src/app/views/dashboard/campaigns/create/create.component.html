@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="dashboard-heading">Personal informations</h4>
+  </div>
+  <div class="col-md-12">
+    <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmitCampaignForm()">
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Title</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+            placeholder="title"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+          <textarea
+            class="form-control"
+            id="description"
+            formControlName="description"
+            placeholder="description"
+            autocomplete="off"
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Location</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="location"
+            formControlName="location"
+            placeholder="location"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Capacity</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            class="form-control"
+            id="capacity"
+            formControlName="capacity"
+            placeholder="capacity"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Start at</label>
+        <div class="col-sm-10">
+          <input
+            type="datetime"
+            class="form-control"
+            id="start_at"
+            formControlName="start_at"
+            placeholder="start_at"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Ends at</label>
+        <div class="col-sm-10">
+          <input
+            type="datetime"
+            class="form-control"
+            id="start_at"
+            formControlName="start_at"
+            placeholder="start_at"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <button class="btn btn-success" type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Add campaign</span>
+        <div
+          class="spinner-border spinner-border-sm"
+          role="status"
+          *ngIf="isLoading"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </form>
+  </div>
+</div>
