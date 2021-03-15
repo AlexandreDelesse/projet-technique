@@ -33,6 +33,7 @@ class CampaignsController extends Controller
         if (!auth()->user()->isAdmin()) {
             abort(403);
         }
+        
         $data = $request->validated();  
 
         $data['slug'] = Str::slug($data['title']);

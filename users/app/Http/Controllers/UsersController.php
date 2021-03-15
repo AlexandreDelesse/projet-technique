@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-       return $users;
+        return $users;
     }
 
     /**
@@ -83,7 +83,7 @@ class UsersController extends Controller
         }
        $user->delete();
        return [
-        'success' => 'User deleted successfully.'
-              ];
+           'success' => 'User deleted successfully.'
+        ];
     }
 }

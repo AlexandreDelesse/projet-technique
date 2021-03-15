@@ -46,7 +46,16 @@ class User extends Authenticatable
     *
     * @return bool
     */
-   public function isAdmin(): bool {
+    public function isAdmin(): bool {
        return $this->type == 1;
-   }
+    }
+
+    /**
+    * Determine if the current user is super admin
+    *
+    * @return bool
+    */
+    public function isSuperAdmin(): bool {
+        return $this->type == 2;
+    }
 }

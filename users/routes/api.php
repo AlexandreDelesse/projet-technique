@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,5 @@ Route::get('/users/{user}', 'UsersController@show')->name('users.show');
 Route::post('/users', 'UsersController@store')->name('users.store');
 Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
+
+Route::patch('users/{user}/adress', 'AdressesController@update')->name('users.update.adress');

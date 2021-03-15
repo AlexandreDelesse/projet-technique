@@ -1,5 +1,3 @@
-import { Url } from 'url';
-
 export class User {
   firstname!: string;
   lastname!: string;
