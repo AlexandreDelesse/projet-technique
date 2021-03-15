@@ -22,7 +22,3 @@ Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
 Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
 Route::patch('users/{user}/adress', 'AdressesController@update')->name('users.update.adress');
-
-Route::get('/adresses', function() {
-    return Http::get("https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port");
-});
