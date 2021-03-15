@@ -28,6 +28,9 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
        
         $data = $request->validated();
  
@@ -55,6 +58,10 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
 
         $user->update($data);
@@ -71,6 +78,9 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
        $user->delete();
        return [
         'success' => 'User deleted successfully.'
