@@ -9,7 +9,8 @@ export class User {
   phone?: string;
   gender?: string;
   slug?: string;
-  adress?: string;
+  adress_id: any;
+  adress?: any;
   bloodgroup_id?: number;
   id?: number;
   birthdate?: Date;

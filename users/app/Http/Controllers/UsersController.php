@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users;
+        return $users->load("adress");
     }
 
     /**
@@ -28,10 +28,9 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-       
         $data = $request->validated();
  
-        return User::create($data);
+        return User::create($data)->load("adress");
     }
 
     /**
@@ -43,7 +42,7 @@ class UsersController extends Controller
     public function show(User $user)
     {
     
-        return $user;
+        return $user->load("adress");
     }
 
     /**
@@ -59,7 +58,7 @@ class UsersController extends Controller
 
         $user->update($data);
 
-        return $user;
+        return $user->load("adress");
         
     }
 

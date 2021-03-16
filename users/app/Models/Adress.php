@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Adress extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function adress() {
+        return $this->belongsTo(Adress::class);
+    }
 }

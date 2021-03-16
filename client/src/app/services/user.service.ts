@@ -17,4 +17,12 @@ export class UserService {
       }),
     });
   }
+
+  updateAdress(adress: any, id: number): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/users/${id}/adress`, adress, {
+      headers: new HttpHeaders({
+        accept: 'application/json',
+      }),
+    });
+  }
 }
