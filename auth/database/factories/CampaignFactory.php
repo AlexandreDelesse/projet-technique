@@ -27,7 +27,6 @@ class CampaignFactory extends Factory
             'title' =>$title,
             'slug' => Str::slug($title),
             'description' => $this->faker->text,
-            'location' => $this->faker->numberBetween(1, 99),
             'capacity' => $this->faker->randomDigit
         ];
     }

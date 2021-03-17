@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Campaign;
 
+use App\Models\Campaign;
 use App\Http\Requests\CreateCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
+use App\Models\Adress;
 use App\Models\User;
 use App\Notifications\CampaignCreated;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;
 
@@ -19,7 +21,7 @@ class CampaignsController extends Controller
      */
     public function index()
     {
-        return Campaign::latest()->get();
+        return Campaign::latest()->with(['adress', 'file'])->get();
     }
 
     /**
@@ -36,16 +38,38 @@ class CampaignsController extends Controller
         
         $data = $request->validated();  
 
-        $data['slug'] = Str::slug($data['title']);
+        $adress = Adress::firstOrCreate(
+            ['label' => $data['adress']['label']], 
+            [
+                'name' => $data['adress']['name'],
+                'postcode' => $data['adress']['postcode'],
+                'city' => $data['adress']['city'],
+                'street' => $data['adress']['street'],
+                'importance' => $data['adress']['importance'],
+                'x' => $data['adress']['x'],
+                'y' => $data['adress']['y'],
+            ]
+        );
 
-        $campaign = Campaign::create($data);
+        $campaign = Campaign::create([
+            'slug' => Str::slug($data['title']),
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'capacity' => $data['capacity'],
+            'start_at' => $data['start_at'],
+            'end_at' => $data['end_at'],
+            'adress_id' => $adress->id,
+            'file_id' => $data['file_id']
+        ]);
 
         Notification::send(
-            User::where('type', 0)->get(), 
+            User::where('type', 0)->whereHas('adress', function($query) use ($campaign) {
+                $query->where('city', $campaign->adress->city);
+            })->get(), 
             new CampaignCreated($campaign)
         );
 
-        return response()->json($campaign, 201);
+        return response()->json($campaign->load(['adress', 'file']), 201);
     }
 
     /**

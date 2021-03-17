@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Campaign } from '@app/models/campaign';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
-import { DatePipe, formatDate } from '@angular/common';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AdressService } from '@app/services/adress.service';
+import { FileUploadService } from '@app/services/file-upload.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-campaign',
@@ -19,15 +17,16 @@ export class CreateCampaignComponent implements OnInit {
     title: '',
     description: '',
     capacity: '',
-    start_at: '',
-    end_at: '',
   };
+  start_at = new Date();
+  end_at = new Date();
   adress: any;
+  file: any;
 
   constructor(
     private campaignService: CampaignService,
-    private datePipe: DatePipe,
-    private adressService: AdressService
+    private adressService: AdressService,
+    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit(): void {}
@@ -47,24 +46,40 @@ export class CreateCampaignComponent implements OnInit {
     return value.properties.label;
   }
 
+  onChange(e: any) {
+    this.file = e.target.files[0];
+  }
+
   onSubmit(): void {
+    var formData: FormData = new FormData();
+    formData.append('file', this.file);
     this.isLoading = true;
-    console.log(this.campaign);
-    // this.campaignService
-    //   .addCampaign({
-    //     ...this.campaign,
-    //     adress: this.adress.propreties,
-    //   })
-    //   .subscribe(
-    //     (data) => {
-    //       console.log(data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //     () => {
-    //       this.isLoading = false;
-    //     }
-    //   );
+
+    this.fileUploadService.upload(formData).subscribe(
+      (file) => {
+        this.campaignService
+          .addCampaign({
+            ...this.campaign,
+            adress: this.adress.properties,
+            file_id: file.id,
+            start_at: moment(this.start_at).format('YYYY-MM-DD hh:mm:ss'),
+            end_at: moment(this.end_at).format('YYYY-MM-DD hh:mm:ss'),
+          })
+          .subscribe(
+            (data) => {
+              console.log(data);
+              this.isLoading = false;
+            },
+            (error) => {
+              console.log(error);
+              this.isLoading = false;
+            }
+          );
+      },
+      (error) => {
+        console.log(error);
+        this.isLoading = false;
+      }
+    );
   }
 }

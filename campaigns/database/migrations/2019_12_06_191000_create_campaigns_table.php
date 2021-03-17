@@ -18,7 +18,8 @@ class CreateCampaignsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->text('adress_id');
+            $table->foreignId('adress_id')->nullable()->constrained();
+            $table->foreignId('file_id')->nullable()->constrained();
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->unsignedInteger('capacity');
