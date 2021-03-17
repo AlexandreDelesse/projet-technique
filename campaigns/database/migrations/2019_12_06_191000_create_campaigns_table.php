@@ -18,7 +18,7 @@ class CreateCampaignsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->text('location');
+            $table->text('adress_id');
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->unsignedInteger('capacity');

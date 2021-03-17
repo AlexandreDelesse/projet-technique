@@ -54,8 +54,10 @@ export class ProfileComponent implements OnInit {
     this.userService
       .updateAdress(this.adress.properties, this.user.id)
       .subscribe(
-        (response) => {
-          console.log(response);
+        (user) => {
+          let userStr = JSON.stringify(user);
+          localStorage.setItem('user', userStr);
+          this.user = user;
           this.isLoading = false;
         },
         (error) => {

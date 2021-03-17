@@ -3,7 +3,7 @@
     <h4 class="dashboard-heading">Personal informations</h4>
   </div>
   <div class="col-md-12">
-    <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmitCampaignForm()">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-row mb-3">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
@@ -11,77 +11,153 @@
             type="text"
             class="form-control"
             id="title"
-            formControlName="title"
-            placeholder="title"
-            autocomplete="off"
+            placeholder="Enter title"
+            name="title"
+            [ngModel]="campaign.title"
+            #title="ngModel"
+            required
           />
+          <small
+            class="form-help text-danger"
+            *ngIf="title.invalid && (title.dirty || title.touched)"
+          >
+            <span *ngIf="title.errors && title.errors.required">
+              The title field is required.
+            </span>
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Description</label>
+        <label for="description" class="col-sm-2 col-form-label"
+          >Description</label
+        >
         <div class="col-sm-10">
           <textarea
             class="form-control"
             id="description"
-            formControlName="description"
-            placeholder="description"
-            autocomplete="off"
+            name="description"
+            [ngModel]="campaign.description"
+            #description="ngModel"
+            required
           ></textarea>
+          <small
+            class="form-help text-danger"
+            *ngIf="
+              description.invalid && (description.dirty || description.touched)
+            "
+          >
+            <span *ngIf="description.errors && description.errors.required">
+              The description field is required.
+            </span>
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Location</label>
+        <label for="adress" class="col-sm-2 col-form-label">Adress</label>
         <div class="col-sm-10">
           <input
+            id="adress"
             type="text"
             class="form-control"
-            id="location"
-            formControlName="location"
-            placeholder="location"
-            autocomplete="off"
+            [(ngModel)]="adress"
+            [ngbTypeahead]="search"
+            [resultFormatter]="formatter"
+            [inputFormatter]="formatter"
+            [editable]="false"
+            #adressInput="ngModel"
+            name="adress"
+            required
           />
+          <small
+            class="form-help text-danger"
+            *ngIf="
+              adressInput.invalid && (adressInput.dirty || adressInput.touched)
+            "
+          >
+            <span *ngIf="adressInput.errors && adressInput.errors.required">
+              The adress field is required.
+            </span>
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Capacity</label>
+        <label for="capacity" class="col-sm-2 col-form-label">Capacity</label>
         <div class="col-sm-10">
           <input
             type="number"
             class="form-control"
             id="capacity"
-            formControlName="capacity"
-            placeholder="capacity"
-            autocomplete="off"
+            placeholder="Max number of participants"
+            [(ngModel)]="campaign.capacity"
+            #capacity="ngModel"
+            name="capacity"
+            required
           />
+          <small
+            class="form-help text-danger"
+            *ngIf="capacity.invalid && (capacity.dirty || capacity.touched)"
+          >
+            <span *ngIf="capacity.errors && capacity.errors.required">
+              The capacity field is required.
+            </span>
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Start at</label>
+        <label for="start_at" class="col-sm-2 col-form-label">Start at</label>
         <div class="col-sm-10">
           <input
-            type="datetime"
-            class="form-control"
             id="start_at"
-            formControlName="start_at"
-            placeholder="start_at"
-            autocomplete="off"
+            class="form-control"
+            type="datetime"
+            [owlDateTime]="dt1"
+            [owlDateTimeTrigger]="dt1"
+            [(ngModel)]="campaign.start_at"
+            #start_at="ngModel"
+            name="start_at"
+            required
           />
+          <owl-date-time #dt1></owl-date-time>
+          <small
+            class="form-help text-danger"
+            *ngIf="start_at.invalid && (start_at.dirty || start_at.touched)"
+          >
+            <span *ngIf="start_at.errors && start_at.errors.required">
+              The start at field is required.
+            </span>
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Ends at</label>
+        <label for="end_at" class="col-sm-2 col-form-label">Ends at</label>
         <div class="col-sm-10">
           <input
-            type="datetime"
+            id="end_at"
             class="form-control"
-            id="start_at"
-            formControlName="start_at"
-            placeholder="start_at"
-            autocomplete="off"
+            type="datetime"
+            [owlDateTime]="dt2"
+            [owlDateTimeTrigger]="dt2"
+            [(ngModel)]="campaign.end_at"
+            #end_at="ngModel"
+            name="end_at"
+            required
           />
+          <owl-date-time #dt2></owl-date-time>
+          <small
+            class="form-help text-danger"
+            *ngIf="end_at.invalid && (end_at.dirty || end_at.touched)"
+          >
+            <span *ngIf="end_at.errors && end_at.errors.required">
+              The end at field is required.
+            </span>
+          </small>
         </div>
       </div>
-      <button class="btn btn-success" type="submit" [disabled]="isLoading">
+      <button
+        class="btn btn-success"
+        type="submit"
+        [disabled]="isLoading || form.invalid"
+      >
         <span *ngIf="!isLoading">Add campaign</span>
         <div
           class="spinner-border spinner-border-sm"

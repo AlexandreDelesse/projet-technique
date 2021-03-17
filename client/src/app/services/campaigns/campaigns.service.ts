@@ -13,9 +13,11 @@ export class CampaignService {
   getCampaigns(): Observable<Campaign[]> {
     return this.http.get<Campaign[]>(this.baseUrl);
   }
-  addCampaign(campaign: Campaign): Observable<Campaign> {
+
+  addCampaign(campaign: any): Observable<Campaign> {
     return this.http.post<Campaign>(this.baseUrl, campaign);
   }
+
   deleteCampain(campaign: Campaign): Observable<any> {
     return this.http.delete<Campaign>(this.baseUrl + '/' + campaign.id);
   }

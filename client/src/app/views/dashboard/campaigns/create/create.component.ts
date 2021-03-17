@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Campaign } from '@app/models/campaign';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { DatePipe, formatDate } from '@angular/common';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { AdressService } from '@app/services/adress.service';
 
 @Component({
   selector: 'app-create-campaign',
@@ -11,46 +14,57 @@ import { DatePipe, formatDate } from '@angular/common';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateCampaignComponent implements OnInit {
-  addCampaignForm = this.formBuilder.group({
-    capacity: ['', Validators.required],
-    end_at: ['', Validators.required],
-    description: ['', Validators.required],
-    location: ['', Validators.required],
-    start_at: ['', Validators.required],
-    title: ['', Validators.required],
-  });
   isLoading = false;
+  campaign = {
+    title: '',
+    description: '',
+    capacity: '',
+    start_at: '',
+    end_at: '',
+  };
+  adress: any;
+
   constructor(
-    private formBuilder: FormBuilder,
     private campaignService: CampaignService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private adressService: AdressService
   ) {}
 
   ngOnInit(): void {}
 
-  onSubmitCampaignForm(): void {
-    this.isLoading = true;
-    const campaign = new Campaign(
-      this.addCampaignForm.value.title,
-      this.addCampaignForm.value.description,
-      this.addCampaignForm.value.location,
-      this.addCampaignForm.value.start_at,
-      this.addCampaignForm.value.end_at,
-      this.addCampaignForm.value.capacity,
-      this.datePipe.transform(Date(), 'mediumDate')
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      // switchMap allows returning an observable rather than maps array
+      switchMap((searchText) =>
+        searchText.length > 2 ? this.adressService.search(searchText) : []
+      )
     );
+  };
 
-    this.campaignService.addCampaign(campaign).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        this.isLoading = false;
-        this.addCampaignForm.reset();
-      }
-    );
+  formatter(value: any) {
+    return value.properties.label;
+  }
+
+  onSubmit(): void {
+    this.isLoading = true;
+    console.log(this.campaign);
+    // this.campaignService
+    //   .addCampaign({
+    //     ...this.campaign,
+    //     adress: this.adress.propreties,
+    //   })
+    //   .subscribe(
+    //     (data) => {
+    //       console.log(data);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     },
+    //     () => {
+    //       this.isLoading = false;
+    //     }
+    //   );
   }
 }
