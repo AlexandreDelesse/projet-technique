@@ -26,7 +26,6 @@ class UserFactory extends Factory
             'firstname' => $this->faker->firstName,
             'lastname' => $this->faker->lastName,
             'birthdate' => $this->faker->date,
-            'adress' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
             'bloodgroup_id' => null,
             'type' => 0,

@@ -1,49 +1,39 @@
 <div class="row">
   <div class="col-md-12">
     <h4 class="dashboard-heading">Personal informations</h4>
-    <h5 class="dashboard-sub-heading">My adress</h5>
+    <h5 class="dashboard-subheading">My adress</h5>
 
-    <form method="POST">
+    <form method="POST" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="label">Adress</label>
         <input
+          id="label"
           type="text"
-          id="adress"
           class="form-control"
-          placeholder="8 Boulevard du Port 80000 ..."
+          [(ngModel)]="adress"
+          [ngbTypeahead]="search"
+          [resultFormatter]="formatter"
+          [inputFormatter]="formatter"
+          [editable]="false"
+          #label="ngModel"
+          name="label"
           required
-          (keyup)="findAdress()"
-          [(ngModel)]="form.adress"
-          #adress="ngModel"
-          name="adress"
         />
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="city">City</label>
-          <input
-            type="text"
-            class="form-control"
-            id="city"
-            [(ngModel)]="form.city"
-            #city="ngModel"
-            name="city"
-          />
-        </div>
-        <div class="form-group col-md-2">
-          <label for="postcode">Postal code</label>
-          <input
-            type="text"
-            class="form-control"
-            id="postcode"
-            [(ngModel)]="form.postcode"
-            #postcode="ngModel"
-            name="postcode"
-          />
-        </div>
+        <small
+          class="form-help text-danger"
+          *ngIf="label.invalid && (label.dirty || label.touched)"
+        >
+          <span *ngIf="label.errors && label.errors.required">
+            The adress field is required.
+          </span>
+        </small>
       </div>
       <div class="form-group">
-        <button class="btn btn-success" type="submit" [disabled]="isLoading">
+        <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="isLoading || label.invalid"
+        >
           <span *ngIf="!isLoading">Change adress</span>
           <div
             class="spinner-border spinner-border-sm"

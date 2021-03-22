@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Campaign } from '@app/models/campaign';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
-import { DatePipe, formatDate } from '@angular/common';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { AdressService } from '@app/services/adress.service';
+import { FileUploadService } from '@app/services/file-upload.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-campaign',
@@ -11,45 +12,73 @@ import { DatePipe, formatDate } from '@angular/common';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateCampaignComponent implements OnInit {
-  addCampaignForm = this.formBuilder.group({
-    capacity: ['', Validators.required],
-    end_at: ['', Validators.required],
-    description: ['', Validators.required],
-    location: ['', Validators.required],
-    start_at: ['', Validators.required],
-    title: ['', Validators.required],
-  });
   isLoading = false;
+  campaign = {
+    title: '',
+    description: '',
+    capacity: '',
+  };
+  start_at = new Date();
+  end_at = new Date();
+  adress: any;
+  file: any;
+
   constructor(
-    private formBuilder: FormBuilder,
     private campaignService: CampaignService,
-    private datePipe: DatePipe
+    private adressService: AdressService,
+    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit(): void {}
 
-  onSubmitCampaignForm(): void {
-    this.isLoading = true;
-    const campaign = new Campaign(
-      this.addCampaignForm.value.title,
-      this.addCampaignForm.value.description,
-      this.addCampaignForm.value.location,
-      this.addCampaignForm.value.start_at,
-      this.addCampaignForm.value.end_at,
-      this.addCampaignForm.value.capacity,
-      this.datePipe.transform(Date(), 'mediumDate')
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      // switchMap allows returning an observable rather than maps array
+      switchMap((searchText) =>
+        searchText.length > 2 ? this.adressService.search(searchText) : []
+      )
     );
+  };
 
-    this.campaignService.addCampaign(campaign).subscribe(
-      (data) => {
-        console.log(data);
+  formatter(value: any) {
+    return value.properties.label;
+  }
+
+  onChange(e: any) {
+    this.file = e.target.files[0];
+  }
+
+  onSubmit(): void {
+    var formData: FormData = new FormData();
+    formData.append('file', this.file);
+    this.isLoading = true;
+
+    this.fileUploadService.upload(formData).subscribe(
+      (file) => {
+        this.campaignService
+          .addCampaign({
+            ...this.campaign,
+            adress: this.adress.properties,
+            file_id: file.id,
+            start_at: moment(this.start_at).format('YYYY-MM-DD hh:mm:ss'),
+            end_at: moment(this.end_at).format('YYYY-MM-DD hh:mm:ss'),
+          })
+          .subscribe(
+            (data) => {
+              console.log(data);
+              this.isLoading = false;
+            },
+            (error) => {
+              console.log(error);
+              this.isLoading = false;
+            }
+          );
       },
       (error) => {
         console.log(error);
-      },
-      () => {
         this.isLoading = false;
-        this.addCampaignForm.reset();
       }
     );
   }

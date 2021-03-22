@@ -20,6 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SidebarComponent } from './views/dashboard/sidebar/sidebar.component';
 import { ProfileComponent } from './views/dashboard/profile/profile.component';
 import { AvatarComponent } from './views/dashboard/avatar/avatar.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,9 @@ import { AvatarComponent } from './views/dashboard/avatar/avatar.component';
     ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NoopAnimationsModule,
   ],
   providers: [httpInterceptorProviders, DatePipe, CampaignService],
   bootstrap: [AppComponent],

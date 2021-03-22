@@ -18,7 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthdate')->nullable();
-            $table->text('adress')->nullable();
             $table->string('phone')->nullable();
             $table->foreignId('bloodgroup_id')->nullable()->constrained()->onCascade('set null');
             $table->unsignedInteger('type')->default(0);

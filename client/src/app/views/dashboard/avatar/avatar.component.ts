@@ -41,6 +41,7 @@ export class AvatarComponent implements OnInit {
             (user) => {
               let userStr = JSON.stringify(user);
               localStorage.setItem('user', userStr);
+              this.user = user;
               this.isLoading = false;
             },
             (error) => {

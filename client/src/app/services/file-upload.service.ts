@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FileUploadService {
-  baseUrl: string = 'http://127.0.0.1:8000/api/users/1/';
+  baseUrl: string = 'http://127.0.0.1:8000/api/files';
   constructor(private http: HttpClient) {}
 
   upload(formData: FormData): Observable<File> {
-    return this.http.patch<File>(`${this.baseUrl}`, formData, {
+    return this.http.post<File>(`${this.baseUrl}`, formData, {
       headers: new HttpHeaders({
         accept: 'application/json',
         'content-type': 'application/json',

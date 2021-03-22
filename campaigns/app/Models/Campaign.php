@@ -18,4 +18,12 @@ class Campaign extends Model
     public function path() {
         return '/campaigns/' . $this->slug;
     }
+
+    public function adress() {
+        return $this->belongsTo(Adress::class);
+    }
+
+    public function file() {
+        return $this->belongsTo(File::class);
+    }
 }

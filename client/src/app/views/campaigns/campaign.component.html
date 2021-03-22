@@ -6,11 +6,11 @@
     <div class="col-md-4 mb-2" *ngFor="let campaign of campaigns">
       <div class="campaign-card">
         <a href="#" class="campaign-card-inner">
-          <!-- <div class="campaign-image">
+          <div class="campaign-image">
             <div class="image-wrapper">
-              <img src="{{ $ad->files()->first()->filepath }}" />
-            </div> 
-          </div> -->
+              <img src="{{ campaign.file.path }}" />
+            </div>
+          </div>
           <div class="campaign-details">
             <h5 class="campaign-title">
               {{ campaign.title }}
@@ -18,7 +18,7 @@
             <div class="campaign-metas">
               <span class="campaign-meta pr-2">
                 <fa-icon [icon]="faMapMarkerAlt" [classes]="['mr-1']"></fa-icon>
-                {{ campaign.location }}
+                {{ campaign.adress.city }}
               </span>
               <span class="campaign-meta">
                 <fa-icon [icon]="faCalendar" [classes]="['mr-1']"></fa-icon>
