@@ -28,6 +28,9 @@ class PostsController extends Controller
      */
     public function store(CreateBlogRequest $request)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
  
         return Post::create($data);
@@ -52,6 +55,9 @@ class PostsController extends Controller
      */
     public function update(UpdateBlogRequest $request, Post $post)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
 
         $post->update($data);
@@ -66,6 +72,9 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $post->delete();
         return [
          'success' => 'Post deleted successfully.'

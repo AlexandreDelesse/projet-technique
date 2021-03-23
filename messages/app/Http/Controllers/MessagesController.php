@@ -15,6 +15,9 @@ class MessagesController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $messages = Message::all();
         return $messages;
     }
@@ -57,6 +60,9 @@ class MessagesController extends Controller
      */
     public function update(UpdateMessageRequest $request, Message $message)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $data = $request->validated();
 
         $message->update($data);
@@ -73,6 +79,9 @@ class MessagesController extends Controller
      */
     public function destroy(Message $message)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
         $message->delete();
         return [
          'success' => 'Message deleted successfully.'
