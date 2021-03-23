@@ -42,7 +42,7 @@ jobs:
     - name: Install gcloud
       run: |
         sudo apt-get update
-        apt-get install google-cloud-sdk
+        sudo apt-get install google-cloud-sdk
   
   
   
