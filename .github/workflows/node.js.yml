@@ -39,12 +39,21 @@ jobs:
       with:
         name: don-du-sang--${{ github.run_id }}
         path: "client/dist/**"
+    - name: Install gcloud
+      run: |
+        sudo apt-get update
+        sudo apt-get install google-cloud-sdk
   
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        uses: action/download-artifact@v2
-        with: 
-          name: don-du-sang-${{ github.run_id }}
-          path: "./build"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
