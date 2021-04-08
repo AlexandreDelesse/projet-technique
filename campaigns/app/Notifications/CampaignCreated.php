@@ -46,7 +46,7 @@ class CampaignCreated extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject('New blood dontating campaign')
             ->markdown('campaign-created', [
-                'campaign' => $this->campaign,
+                'campaign' => $this->campaign->load("adress"),
                 'notifiable' => $notifiable
             ]);
     }

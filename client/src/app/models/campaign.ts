@@ -4,7 +4,6 @@ export class Campaign {
   constructor(
     public title: string,
     public description: string,
-    public location: string,
     public start_at: Date,
     public end_at: Date,
     public capacity: number,

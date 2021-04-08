@@ -58,4 +58,8 @@ class User extends Authenticatable
     public function isSuperAdmin(): bool {
         return $this->type == 2;
     }
+
+    public function adress() {
+        return $this->belongsTo(Adress::class);
+    }
 }

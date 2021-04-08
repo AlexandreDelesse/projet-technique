@@ -13,3 +13,11 @@
     height: 150px;
   }
 }
+
+.flash-alert {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 999;
+  width: 300px;
+}

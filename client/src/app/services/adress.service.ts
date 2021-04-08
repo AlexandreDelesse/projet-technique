@@ -32,4 +32,22 @@ export class AdressService {
         })
       );
   }
+
+  searchCity(name: string): Observable<any> {
+    return this.http
+      .get('https://geo.api.gouv.fr/communes', {
+        params: {
+          nom: name,
+          bootst: 'population',
+          limit: '10',
+        },
+      })
+      .pipe(
+        map((response: any) => {
+          return response.sort(
+            (item1: any, item2: any) => item2.population - item1.population
+          );
+        })
+      );
+  }
 }

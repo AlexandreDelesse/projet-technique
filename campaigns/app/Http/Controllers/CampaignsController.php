@@ -21,7 +21,7 @@ class CampaignsController extends Controller
      */
     public function index()
     {
-        return Campaign::latest()->with(['adress', 'file'])->get();
+        return Campaign::filter()->latest()->with(['adress', 'file'])->get();
     }
 
     /**
@@ -63,7 +63,7 @@ class CampaignsController extends Controller
         ]);
 
         Notification::send(
-            User::where('type', 0)->whereHas('adress', function($query) use ($campaign) {
+            User::whereHas('adress', function($query) use ($campaign) {
                 $query->where('city', $campaign->adress->city);
             })->get(), 
             new CampaignCreated($campaign)
@@ -80,7 +80,7 @@ class CampaignsController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        return $campaign;
+        return $campaign->load(['file', 'adress']);
     }
 
     /**

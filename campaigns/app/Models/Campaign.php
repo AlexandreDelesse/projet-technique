@@ -26,4 +26,26 @@ class Campaign extends Model
     public function file() {
         return $this->belongsTo(File::class);
     }
+
+    /**
+     * Filter campaigns.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter($query)
+    {
+        if(request()->has('city')) {
+            $query->whereHas('adress', function($query2) {
+                $query2->where('city', request('city'));
+            });
+        }
+        if(request()->has('start_at')) {
+            $query->whereDate('start_at', '>=', request('start_at'));
+        }
+        if(request()->has('end_at')) {
+            $query->whereDate('end_at', '<=', request('end_at'));
+        }
+        return $query;
+    }
 }

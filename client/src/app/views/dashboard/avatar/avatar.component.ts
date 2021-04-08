@@ -12,6 +12,8 @@ export class AvatarComponent implements OnInit {
   user: any;
   file: any;
   isLoading = false;
+  showSuccessAlert = false;
+  showErrorAlert = false;
 
   constructor(
     private loginService: LoginService,
@@ -43,10 +45,18 @@ export class AvatarComponent implements OnInit {
               localStorage.setItem('user', userStr);
               this.user = user;
               this.isLoading = false;
+              this.showSuccessAlert = true;
+              setTimeout(() => {
+                this.showSuccessAlert = false;
+              }, 5000);
             },
             (error) => {
               console.log(error);
               this.isLoading = false;
+              this.showErrorAlert = true;
+              setTimeout(() => {
+                this.showErrorAlert = false;
+              }, 5000);
             }
           );
       },

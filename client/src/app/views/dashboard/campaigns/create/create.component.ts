@@ -22,6 +22,8 @@ export class CreateCampaignComponent implements OnInit {
   end_at = new Date();
   adress: any;
   file: any;
+  showSuccessAlert = false;
+  showErrorAlert = false;
 
   constructor(
     private campaignService: CampaignService,
@@ -67,11 +69,17 @@ export class CreateCampaignComponent implements OnInit {
           })
           .subscribe(
             (data) => {
-              console.log(data);
+              this.showSuccessAlert = true;
+              setTimeout(() => {
+                this.showSuccessAlert = false;
+              }, 5000);
               this.isLoading = false;
             },
             (error) => {
-              console.log(error);
+              this.showErrorAlert = true;
+              setTimeout(() => {
+                this.showErrorAlert = false;
+              }, 5000);
               this.isLoading = false;
             }
           );

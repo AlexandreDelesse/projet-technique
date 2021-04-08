@@ -1,9 +1,13 @@
 <div class="row">
   <div class="col-md-12">
-    <h4 class="dashboard-heading">Avatar</h4>
+    <h4 class="dashboard-heading">Changer photo de profile</h4>
   </div>
   <div class="col-md-12">
-    <form method="POST" (ngSubmit)="changeAvatar()">
+    <form
+      method="POST"
+      (ngSubmit)="changeAvatar(); form.reset()"
+      #form="ngForm"
+    >
       <div
         class="avatar avatar-big"
         [style.background-image]="'url(' + user.avatar + ')'"
@@ -15,19 +19,30 @@
           (change)="onChange($event)"
         />
       </div>
-      <span class="text-helper">File type: JPG, PNG, WEBP or GIF.</span>
+      <span class="text-helper">Type de fichier: JPG, PNG, WEBP or GIF.</span>
       <div class="form-group mt-3">
         <button class="btn btn-success" type="submit" [disabled]="isLoading">
-          <span *ngIf="!isLoading">Change avatar</span>
+          <span *ngIf="!isLoading">Changer photo de profile</span>
           <div
             class="spinner-border spinner-border-sm"
             role="status"
             *ngIf="isLoading"
           >
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Chargement...</span>
           </div>
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Votre photo a été bien modifié.'"
+></app-flash-alert>
+
+<app-flash-alert
+  [show]="showErrorAlert"
+  [message]="'Une erreur s\'est produit, veuillez réessayer. '"
+  [type]="'danger'"
+></app-flash-alert>

@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="dashboard-heading">Liste des campagnes</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table
+        datatable
+        class="row-border hover stripe"
+        [dtOptions]="dtOptions"
+        *ngIf="!isLoading"
+      >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Du</th>
+            <th>Au</th>
+            <th>Capacité</th>
+            <th>Adresse</th>
+            <th>Crée le</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="campaigns?.length != 0">
+          <tr *ngFor="let campaign of campaigns">
+            <td class="nowrap">{{ campaign.id }}</td>
+            <td>{{ campaign.title }}</td>
+            <td>{{ campaign.description }}</td>
+            <td class="nowrap">{{ campaign.start_at }}</td>
+            <td class="nowrap">{{ campaign.end_at }}</td>
+            <td>{{ campaign.capacity }}</td>
+            <td class="nowrap">{{ campaign.adress.label }}</td>
+            <td class="nowrap">{{ campaign.created_at | date: "medium" }}</td>
+            <td class="actions">
+              <div class="d-flex">
+                <a class="text-primary px-1" role="button" title="Détails">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                </a>
+                <a class="text-success px-1" role="button" title="Modifier">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+                <a
+                  class="text-danger px-1"
+                  role="button"
+                  (click)="delete(campaign)"
+                  title="Supprimer"
+                >
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="campaigns?.length == 0">
+          <tr>
+            <td colspan="3" class="no-data-available">
+              Aucune donnée disponible
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Supprimé!'"
+></app-flash-alert>

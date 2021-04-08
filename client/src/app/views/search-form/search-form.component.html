@@ -1,0 +1,56 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="form-row justify-content-center">
+    <div class="col-md-3">
+      <input
+        id="city"
+        type="text"
+        class="form-control"
+        [(ngModel)]="city"
+        [ngbTypeahead]="search"
+        [resultFormatter]="formatter"
+        [inputFormatter]="formatter"
+        [editable]="false"
+        #cityInput="ngModel"
+        name="city"
+        placeholder="Ville"
+      />
+      <small
+        class="form-help text-danger"
+        *ngIf="cityInput.invalid && (cityInput.dirty || cityInput.touched)"
+      >
+        <span *ngIf="cityInput.errors && cityInput.errors.required">
+          Le champ ville est obligatoire.
+        </span>
+      </small>
+    </div>
+    <div class="col-md-3">
+      <input
+        id="start_at"
+        class="form-control"
+        type="datetime"
+        [owlDateTime]="dt1"
+        [owlDateTimeTrigger]="dt1"
+        [(ngModel)]="start_at"
+        name="start_at"
+        placeholder="Du"
+      />
+      <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+    </div>
+    <div class="col-md-3">
+      <input
+        id="end_at"
+        class="form-control"
+        type="datetime"
+        [owlDateTime]="dt2"
+        [owlDateTimeTrigger]="dt2"
+        [(ngModel)]="end_at"
+        name="end_at"
+        placeholder="Au"
+      />
+      <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-primary w-100" type="submit">Rechercher</button>
+    </div>
+  </div>
+</form>

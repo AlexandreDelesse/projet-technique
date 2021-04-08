@@ -1,11 +1,15 @@
 <div class="row">
   <div class="col-md-12">
-    <h4 class="dashboard-heading">Personal informations</h4>
-    <h5 class="dashboard-subheading">My adress</h5>
+    <h4 class="dashboard-heading">Informations personelles</h4>
+    <h5 class="dashboard-subheading">Adresse</h5>
 
-    <form method="POST" (ngSubmit)="onSubmit()">
+    <form
+      method="POST"
+      (ngSubmit)="onSubmit(); myForm.reset()"
+      #myForm="ngForm"
+    >
       <div class="form-group">
-        <label for="label">Adress</label>
+        <label for="label">Adresse</label>
         <input
           id="label"
           type="text"
@@ -24,7 +28,7 @@
           *ngIf="label.invalid && (label.dirty || label.touched)"
         >
           <span *ngIf="label.errors && label.errors.required">
-            The adress field is required.
+            Le champ adresse est obligatoire.
           </span>
         </small>
       </div>
@@ -34,16 +38,27 @@
           type="submit"
           [disabled]="isLoading || label.invalid"
         >
-          <span *ngIf="!isLoading">Change adress</span>
+          <span *ngIf="!isLoading">Changer adresse</span>
           <div
             class="spinner-border spinner-border-sm"
             role="status"
             *ngIf="isLoading"
           >
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Chargement...</span>
           </div>
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Modifications enregistrés.'"
+></app-flash-alert>
+
+<app-flash-alert
+  [show]="showErrorAlert"
+  [message]="'Une erreur s\'est produit, veuillez réessayer. '"
+  [type]="'danger'"
+></app-flash-alert>
