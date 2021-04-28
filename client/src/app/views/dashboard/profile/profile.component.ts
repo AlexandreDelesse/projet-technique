@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   adress: any;
   isLoading = false;
   user: any;
+  showSuccessAlert = false;
+  showErrorAlert = false;
 
   constructor(
     private adressService: AdressService,
@@ -59,8 +61,16 @@ export class ProfileComponent implements OnInit {
           localStorage.setItem('user', userStr);
           this.user = user;
           this.isLoading = false;
+          this.showSuccessAlert = true;
+          setTimeout(() => {
+            this.showSuccessAlert = false;
+          }, 5000);
         },
         (error) => {
+          this.showErrorAlert = true;
+          setTimeout(() => {
+            this.showErrorAlert = false;
+          }, 5000);
           console.log(error);
           this.isLoading = false;
         }

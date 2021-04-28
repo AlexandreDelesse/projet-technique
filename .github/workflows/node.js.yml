@@ -9,7 +9,6 @@ on:
     paths:
       - "client/**"
 
-  workflow_dispatch:
 
 jobs:
   build:
@@ -33,6 +32,10 @@ jobs:
       run: |
         cd client
         npm run build --prod --base-href="/don-du-sang/"
+    - name: copy dockerfile
+      run: |
+        cd client
+        mv ./Dockerfile ./dist
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2

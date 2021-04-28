@@ -49,15 +49,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-<<<<<<< HEAD
     public function isAdmin(): bool{
-        return $this->type== 2;
+        return $this->type == 1;
     }
 
-=======
     public function adress() {
         return $this->belongsTo(Adress::class);
     }
->>>>>>> 5eff1a2fccab608a9086b9ac941c56ecc7a870a3
-
 }

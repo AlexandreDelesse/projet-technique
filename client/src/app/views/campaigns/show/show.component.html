@@ -1,0 +1,204 @@
+<div class="container" *ngIf="!isLoading && campaign">
+  <div class="row my-5">
+    <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="">Accueil</a></li>
+          <li class="breadcrumb-item">
+            <a routerLink="/campaigns">Campagnes</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ campaign.title }}
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="col-md-9">
+      <h3 class="campaign-title">
+        {{ campaign.title }}
+      </h3>
+      <div class="campaign-image">
+        <div class="image-wrapper">
+          <img src="{{ campaign.file.path }}" />
+        </div>
+      </div>
+      <p class="campaign-description">
+        {{ campaign.description }}
+      </p>
+
+      <h3 class="campaign-title">Prendre rendez-vous</h3>
+
+      <form>
+        <div class="form-row mb-3">
+          <label for="lastname" class="col-sm-3 col-form-label">Nom</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              placeholder="Entrer votre nom"
+              name="lastname"
+              [(ngModel)]="form.lastname"
+              #lastname="ngModel"
+              required
+            />
+            <small
+              class="form-help text-danger"
+              *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+            >
+              <span *ngIf="lastname.errors && lastname.errors.required">
+                Le nom est obligatoire.
+              </span>
+            </small>
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <label for="firtname" class="col-sm-3 col-form-label">Prénom</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="firtname"
+              placeholder="Entrer votre prénom"
+              name="firtname"
+              [(ngModel)]="form.firtname"
+              #firtname="ngModel"
+              required
+            />
+            <small
+              class="form-help text-danger"
+              *ngIf="firtname.invalid && (firtname.dirty || firtname.touched)"
+            >
+              <span *ngIf="firtname.errors && firtname.errors.required">
+                Le prénom est obligatoire.
+              </span>
+            </small>
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <label for="email" class="col-sm-3 col-form-label"
+            >Adresse mail</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Entrer votre adresse mail"
+              name="email"
+              [(ngModel)]="form.email"
+              #email="ngModel"
+              required
+            />
+            <small
+              class="form-help text-danger"
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+            >
+              <span *ngIf="email.errors && email.errors.required">
+                L'adresse mail est obligatoire.
+              </span>
+            </small>
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <label for="phone" class="col-sm-3 col-form-label"
+            >Numéro de téléphone</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              placeholder="Entrer votre numéro de téléphone"
+              name="phone"
+              [(ngModel)]="form.phone"
+              #phone="ngModel"
+              required
+            />
+            <small
+              class="form-help text-danger"
+              *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+            >
+              <span *ngIf="phone.errors && phone.errors.required">
+                Le numéro de téléphone est obligatoire.
+              </span>
+            </small>
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <label for="blood" class="col-sm-3 col-form-label"
+            >Groupe sanguin</label
+          >
+          <div class="col-sm-9">
+            <select
+              class="form-control"
+              id="blood"
+              name="blood"
+              required
+              [(ngModel)]="form.blood"
+              #blood="ngModel"
+            >
+              <option value="" disabled selected>
+                Séléctionnez votre groupe sanguin
+              </option>
+              <option>A <sup>+</sup></option>
+              <option>A <sup>-</sup></option>
+              <option>B <sup>+</sup></option>
+              <option>B <sup>-</sup></option>
+              <option>AB <sup>+</sup></option>
+              <option>AB <sup>-</sup></option>
+              <option>O <sup>+</sup></option>
+              <option>O <sup>-</sup></option>
+            </select>
+            <small
+              class="form-help text-danger"
+              *ngIf="blood.invalid && (blood.dirty || blood.touched)"
+            >
+              <span *ngIf="blood.errors && blood.errors.required">
+                Le groupe sanguin est obligatoire.
+              </span>
+            </small>
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <label for="date" class="col-sm-3 col-form-label">Créneau</label>
+          <div class="col-sm-9">
+            <input
+              id="date"
+              class="form-control"
+              type="datetime"
+              [owlDateTime]="dt1"
+              [owlDateTimeTrigger]="dt1"
+              [(ngModel)]="form.date"
+              #date="ngModel"
+              name="date"
+              required
+            />
+            <owl-date-time #dt1></owl-date-time>
+            <small
+              class="form-help text-danger"
+              *ngIf="date.invalid && (date.dirty || date.touched)"
+            >
+              <span *ngIf="date.errors && date.errors.required">
+                Veuillez choisir un créneau.
+              </span>
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row mt-5 mb-3 justify-content-center">
+          <button class="btn btn-primary">Prendre rendez-vous</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-3">
+      <h3 class="campaign-title">Détails</h3>
+
+      <p><b>Adresse :</b> {{ campaign.adress.label }}</p>
+      <p><b>Du :</b> {{ campaign.start_at | date: "medium" }}</p>
+      <p><b>Au :</b> {{ campaign.end_at | date: "medium" }}</p>
+    </div>
+  </div>
+</div>

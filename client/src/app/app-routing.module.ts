@@ -10,6 +10,9 @@ import { IndexComponent as AdminHomeComponent } from '@app/views/dashboard/index
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './views/dashboard/profile/profile.component';
 import { AvatarComponent } from './views/dashboard/avatar/avatar.component';
+import { HomeComponent } from './views/home/home.component';
+import { IndexComponent as CampaignsIndexComponent } from './views/dashboard/campaigns/index/index.component';
+import { ShowComponent } from './views/campaigns/show/show.component';
 
 const routes: Routes = [
   {
@@ -23,17 +26,19 @@ const routes: Routes = [
     canActivate: [GuestGuard],
   },
   { path: 'campaigns', component: CampaignComponent },
+  { path: 'campaigns/:slug', component: ShowComponent },
   {
     path: 'dashboard',
     component: AdminHomeComponent,
     children: [
       { path: 'profile', component: ProfileComponent },
       { path: 'profile/avatar', component: AvatarComponent },
+      { path: 'campaigns', component: CampaignsIndexComponent },
       { path: 'campaigns/create', component: CreateCampaignComponent },
     ],
     canActivate: [AuthGuard],
   },
-  { path: '', redirectTo: '/campaigns', pathMatch: 'full' }, // Should be a landing page not redirect
+  { path: '', component: HomeComponent }, // Should be a landing page not redirect
   { path: '**', component: PageNotFoundComponentComponent }, // 404
 ];
 

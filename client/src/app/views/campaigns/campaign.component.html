@@ -1,7 +1,16 @@
 <div class="container">
   <div class="row my-4">
     <div class="col-md-12">
-      <h3 class="mb-3">Campaigns</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="">Accueil</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Campagnes</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-12 mb-5">
+      <h3 class="mb-5">Campagnes</h3>
+      <app-search-form></app-search-form>
     </div>
     <div class="col-md-4 mb-2" *ngFor="let campaign of campaigns">
       <div class="campaign-card">
@@ -30,6 +39,11 @@
             </p>
           </div>
         </a>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <div class="spinner-border" role="status" *ngIf="isLoading">
+        <span class="sr-only">Chargement...</span>
       </div>
     </div>
   </div>

@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-12">
-    <h4 class="dashboard-heading">Personal informations</h4>
+    <h4 class="dashboard-heading">Ajouter une campagne</h4>
   </div>
   <div class="col-md-12">
-    <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <form (ngSubmit)="onSubmit(); form.reset()" #form="ngForm">
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Title</label>
+        <label for="title" class="col-sm-2 col-form-label">Titre</label>
         <div class="col-sm-10">
           <input
             type="text"
@@ -22,7 +22,7 @@
             *ngIf="title.invalid && (title.dirty || title.touched)"
           >
             <span *ngIf="title.errors && title.errors.required">
-              The title field is required.
+              Le titre est obligatoire.
             </span>
           </small>
         </div>
@@ -47,13 +47,15 @@
             "
           >
             <span *ngIf="description.errors && description.errors.required">
-              The description field is required.
+              Le champ description est obligatoire.
             </span>
           </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="file" class="col-sm-2 col-form-label">Cover photo</label>
+        <label for="file" class="col-sm-2 col-form-label"
+          >Photo de couverture</label
+        >
         <div class="col-sm-10">
           <input
             type="file"
@@ -65,7 +67,7 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="adress" class="col-sm-2 col-form-label">Adress</label>
+        <label for="adress" class="col-sm-2 col-form-label">Adresse</label>
         <div class="col-sm-10">
           <input
             id="adress"
@@ -87,13 +89,13 @@
             "
           >
             <span *ngIf="adressInput.errors && adressInput.errors.required">
-              The adress field is required.
+              Le champ adresse est obligatoire.
             </span>
           </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="capacity" class="col-sm-2 col-form-label">Capacity</label>
+        <label for="capacity" class="col-sm-2 col-form-label">Capacité</label>
         <div class="col-sm-10">
           <input
             type="number"
@@ -110,13 +112,13 @@
             *ngIf="capacity.invalid && (capacity.dirty || capacity.touched)"
           >
             <span *ngIf="capacity.errors && capacity.errors.required">
-              The capacity field is required.
+              Le champ capacité est obligatoire.
             </span>
           </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="start_at" class="col-sm-2 col-form-label">Start at</label>
+        <label for="start_at" class="col-sm-2 col-form-label">Date début</label>
         <div class="col-sm-10">
           <input
             id="start_at"
@@ -138,13 +140,13 @@
             "
           >
             <span *ngIf="start_atInput.errors && start_atInput.errors.required">
-              The start at field is required.
+              Le champ date de début est obligatoire.
             </span>
           </small>
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="end_at" class="col-sm-2 col-form-label">Ends at</label>
+        <label for="end_at" class="col-sm-2 col-form-label">Date fin</label>
         <div class="col-sm-10">
           <input
             id="end_at"
@@ -165,25 +167,38 @@
             "
           >
             <span *ngIf="end_atInput.errors && end_atInput.errors.required">
-              The end at field is required.
+              Le champ date fin est obligatoire.
             </span>
           </small>
         </div>
       </div>
-      <button
-        class="btn btn-success"
-        type="submit"
-        [disabled]="isLoading || form.invalid"
-      >
-        <span *ngIf="!isLoading">Add campaign</span>
-        <div
-          class="spinner-border spinner-border-sm"
-          role="status"
-          *ngIf="isLoading"
+      <div class="form-group text-right">
+        <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="isLoading || form.invalid"
         >
-          <span class="sr-only">Loading...</span>
-        </div>
-      </button>
+          <span *ngIf="!isLoading">Ajouter</span>
+          <div
+            class="spinner-border spinner-border-sm"
+            role="status"
+            *ngIf="isLoading"
+          >
+            <span class="sr-only">Chargement...</span>
+          </div>
+        </button>
+      </div>
     </form>
   </div>
 </div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'La campagne a été bien ajoutée.'"
+></app-flash-alert>
+
+<app-flash-alert
+  [show]="showErrorAlert"
+  [message]="'Une erreur s\'est produit, veuillez réessayer. '"
+  [type]="'danger'"
+></app-flash-alert>

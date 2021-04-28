@@ -1,0 +1,45 @@
+.hero {
+  position: relative;
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../images/hero.jpg") no-repeat center;
+  background-size: cover;
+
+  &:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(#000, 0.3);
+    z-index: 1;
+  }
+
+  .search-form-wrapper {
+    position: relative;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+
+    .search-form {
+      background: rgba(#fff, 0.95);
+      padding: 50px 30px;
+      border-radius: 10px;
+
+      h5 {
+        margin-bottom: 20px;
+      }
+
+      .form-control {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.campaigns {
+  padding: 100px 0;
+}
