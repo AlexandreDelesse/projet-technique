@@ -62,4 +62,8 @@ class User extends Authenticatable
     public function adress() {
         return $this->belongsTo(Adress::class);
     }
+        
+    public function campaigns() {
+        return $this->belongsToMany(Campaign::class)->withPivot('date');
+    }
 }

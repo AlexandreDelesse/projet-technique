@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users->load("adress");
+        return $users->load(['adress', 'campaigns']);
     }
 
     /**
@@ -28,16 +28,13 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-<<<<<<< HEAD
         if (!auth()->user()->isAdmin()) {
             abort(403);
         }
        
-=======
->>>>>>> 5eff1a2fccab608a9086b9ac941c56ecc7a870a3
         $data = $request->validated();
  
-        return User::create($data)->load("adress");
+        return User::create($data)->load(['adress', 'campaigns']);
     }
 
     /**
@@ -48,8 +45,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-    
-        return $user->load("adress");
+        return $user->load(['adress', 'campaigns']);
     }
 
     /**
@@ -69,7 +65,7 @@ class UsersController extends Controller
 
         $user->update($data);
 
-        return $user->load("adress");
+        return $user->load(['adress', 'campaigns']);
         
     }
 

@@ -26,6 +26,10 @@ class Campaign extends Model
     public function file() {
         return $this->belongsTo(File::class);
     }
+    
+    public function users() {
+        return $this->belongsToMany(User::class)->withPivot('date');
+    }
 
     /**
      * Filter campaigns.

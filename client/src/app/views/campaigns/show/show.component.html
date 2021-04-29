@@ -29,103 +29,7 @@
 
       <h3 class="campaign-title">Prendre rendez-vous</h3>
 
-      <form>
-        <div class="form-row mb-3">
-          <label for="lastname" class="col-sm-3 col-form-label">Nom</label>
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              id="lastname"
-              placeholder="Entrer votre nom"
-              name="lastname"
-              [(ngModel)]="form.lastname"
-              #lastname="ngModel"
-              required
-            />
-            <small
-              class="form-help text-danger"
-              *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
-            >
-              <span *ngIf="lastname.errors && lastname.errors.required">
-                Le nom est obligatoire.
-              </span>
-            </small>
-          </div>
-        </div>
-        <div class="form-row mb-3">
-          <label for="firtname" class="col-sm-3 col-form-label">Prénom</label>
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              id="firtname"
-              placeholder="Entrer votre prénom"
-              name="firtname"
-              [(ngModel)]="form.firtname"
-              #firtname="ngModel"
-              required
-            />
-            <small
-              class="form-help text-danger"
-              *ngIf="firtname.invalid && (firtname.dirty || firtname.touched)"
-            >
-              <span *ngIf="firtname.errors && firtname.errors.required">
-                Le prénom est obligatoire.
-              </span>
-            </small>
-          </div>
-        </div>
-        <div class="form-row mb-3">
-          <label for="email" class="col-sm-3 col-form-label"
-            >Adresse mail</label
-          >
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              placeholder="Entrer votre adresse mail"
-              name="email"
-              [(ngModel)]="form.email"
-              #email="ngModel"
-              required
-            />
-            <small
-              class="form-help text-danger"
-              *ngIf="email.invalid && (email.dirty || email.touched)"
-            >
-              <span *ngIf="email.errors && email.errors.required">
-                L'adresse mail est obligatoire.
-              </span>
-            </small>
-          </div>
-        </div>
-        <div class="form-row mb-3">
-          <label for="phone" class="col-sm-3 col-form-label"
-            >Numéro de téléphone</label
-          >
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              id="phone"
-              placeholder="Entrer votre numéro de téléphone"
-              name="phone"
-              [(ngModel)]="form.phone"
-              #phone="ngModel"
-              required
-            />
-            <small
-              class="form-help text-danger"
-              *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-            >
-              <span *ngIf="phone.errors && phone.errors.required">
-                Le numéro de téléphone est obligatoire.
-              </span>
-            </small>
-          </div>
-        </div>
+      <form (ngSubmit)="onSubmit()" *ngIf="!alreadyBooked">
         <div class="form-row mb-3">
           <label for="blood" class="col-sm-3 col-form-label"
             >Groupe sanguin</label
@@ -136,20 +40,20 @@
               id="blood"
               name="blood"
               required
-              [(ngModel)]="form.blood"
+              [(ngModel)]="form.bloodgroup_id"
               #blood="ngModel"
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Séléctionnez votre groupe sanguin
               </option>
-              <option>A <sup>+</sup></option>
-              <option>A <sup>-</sup></option>
-              <option>B <sup>+</sup></option>
-              <option>B <sup>-</sup></option>
-              <option>AB <sup>+</sup></option>
-              <option>AB <sup>-</sup></option>
-              <option>O <sup>+</sup></option>
-              <option>O <sup>-</sup></option>
+              <option value="1">A <sup>+</sup></option>
+              <option value="2">A <sup>-</sup></option>
+              <option value="3">B <sup>+</sup></option>
+              <option value="4">B <sup>-</sup></option>
+              <option value="5">AB <sup>+</sup></option>
+              <option value="6">AB <sup>-</sup></option>
+              <option value="8">O <sup>+</sup></option>
+              <option value="9">O <sup>-</sup></option>
             </select>
             <small
               class="form-help text-danger"
@@ -162,7 +66,7 @@
           </div>
         </div>
         <div class="form-row mb-3">
-          <label for="date" class="col-sm-3 col-form-label">Créneau</label>
+          <label for="date" class="col-sm-3 col-form-label">Horaire</label>
           <div class="col-sm-9">
             <input
               id="date"
@@ -188,17 +92,51 @@
         </div>
 
         <div class="form-row mt-5 mb-3 justify-content-center">
-          <button class="btn btn-primary">Prendre rendez-vous</button>
+          <button class="btn btn-primary" type="submit">
+            Prendre rendez-vous
+          </button>
         </div>
       </form>
+
+      <p *ngIf="alreadyBooked">
+        Vous avez déja réservé un rendez-vous.
+        <a href="#">Gérer mes rendez-vous.</a>
+      </p>
     </div>
 
     <div class="col-md-3">
       <h3 class="campaign-title">Détails</h3>
 
-      <p><b>Adresse :</b> {{ campaign.adress.label }}</p>
-      <p><b>Du :</b> {{ campaign.start_at | date: "medium" }}</p>
-      <p><b>Au :</b> {{ campaign.end_at | date: "medium" }}</p>
+      <p class="campaign-detail">
+        <b>
+          <i class="mr-2"><fa-icon [icon]="faMapMarkerAlt"></fa-icon></i>
+          Adresse :
+        </b>
+        {{ campaign.adress.label }}
+      </p>
+      <p class="campaign-detail">
+        <b>
+          <i class="mr-2"><fa-icon [icon]="faCalendar"></fa-icon></i> Du :
+        </b>
+        {{ campaign.start_at | date: "medium" }}
+      </p>
+      <p class="campaign-detail">
+        <b>
+          <i class="mr-2"><fa-icon [icon]="faCalendar"></fa-icon></i> Au :
+        </b>
+        {{ campaign.end_at | date: "medium" }}
+      </p>
     </div>
   </div>
 </div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Votre rendez-vous a été bien réservé.'"
+></app-flash-alert>
+
+<app-flash-alert
+  [show]="showErrorAlert"
+  [message]="'Une erreur s\'est produit, veuillez réessayer. '"
+  [type]="'danger'"
+></app-flash-alert>

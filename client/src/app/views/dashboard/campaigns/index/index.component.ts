@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Campaign } from '@app/models/campaign';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
@@ -9,13 +10,17 @@ import { faEye, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit {
-  constructor(private campaignService: CampaignService) {}
   campaigns?: Campaign[];
   isLoading = true;
   faTrash = faTrash;
   faPen = faPen;
   faEye = faEye;
   showSuccessAlert = false;
+
+  constructor(
+    private campaignService: CampaignService,
+    private http: HttpClient
+  ) {}
 
   dtOptions: DataTables.Settings = {};
 
@@ -76,6 +81,7 @@ export class IndexComponent implements OnInit {
           setTimeout(() => {
             this.showSuccessAlert = false;
           }, 5000);
+          this.http.delete('http://127.0.0.1:8001/proxy-cache');
         },
         (error) => {
           console.log(error);

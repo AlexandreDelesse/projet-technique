@@ -1,3 +1,5 @@
+import { Campaign } from './campaign';
+
 export class User {
   firstname!: string;
   lastname!: string;
@@ -5,6 +7,7 @@ export class User {
   type!: number;
   updated_at!: Date;
   created_at!: Date;
+  campaigns!: Campaign[];
   avatar?: string;
   phone?: string;
   gender?: string;

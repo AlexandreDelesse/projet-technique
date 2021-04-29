@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +14,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Campaign::factory(10)->create();
-        \App\Models\User::factory(10)->create();
+        \App\Models\Bloodgroup::create([
+            'title' => "A+"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "A-"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "B+"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "B-"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "AB+"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "AB-"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "O+"
+        ]);
+        \App\Models\Bloodgroup::create([
+            'title' => "O-"
+        ]);
+        \App\Models\User::create([
+            'lastname' => 'John',
+            'firstname' => 'Doe',
+            'email' => 'john.doe@gmail.com',
+            'password' => Hash::make('password'),
+            'type' => 1,
+            'bloodgroup_id' => 1
+        ]);
     }
 }

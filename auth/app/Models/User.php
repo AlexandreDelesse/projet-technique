@@ -58,4 +58,8 @@ class User extends Authenticatable
     public function isAdmin(): bool {
         return $this->type === 1;
     }
+
+    public function campaigns() {
+        return $this->belongsToMany(Campaign::class)->withPivot('date');
+    }
 }

@@ -20,6 +20,8 @@ Route::post('/campaigns', 'CampaignsController@store')->name('campaigns.store');
 Route::patch('/campaigns/{campaign}', 'CampaignsController@update')->name('campaigns.update');
 Route::delete('/campaigns/{campaign}', 'CampaignsController@destroy')->name('campaigns.destroy');
 
+Route::post('/campaigns/{campaign}/appointements', 'AppointementsController@store')->name('appointments.store');
+
 Route::post('/files', 'FilesController@store')->name('files.store');
 
 Route::get('/init-gateway', function() {

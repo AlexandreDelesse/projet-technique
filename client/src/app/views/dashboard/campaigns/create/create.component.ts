@@ -56,16 +56,19 @@ export class CreateCampaignComponent implements OnInit {
     var formData: FormData = new FormData();
     formData.append('file', this.file);
     this.isLoading = true;
+    let data = {
+      ...this.campaign,
+      adress: this.adress.properties,
+      start_at: moment(this.start_at).format('YYYY-MM-DD hh:mm:ss'),
+      end_at: moment(this.end_at).format('YYYY-MM-DD hh:mm:ss'),
+    };
 
     this.fileUploadService.upload(formData).subscribe(
       (file) => {
         this.campaignService
           .addCampaign({
-            ...this.campaign,
-            adress: this.adress.properties,
+            ...data,
             file_id: file.id,
-            start_at: moment(this.start_at).format('YYYY-MM-DD hh:mm:ss'),
-            end_at: moment(this.end_at).format('YYYY-MM-DD hh:mm:ss'),
           })
           .subscribe(
             (data) => {

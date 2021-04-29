@@ -14,7 +14,10 @@
     </div>
     <div class="col-md-4 mb-2" *ngFor="let campaign of campaigns">
       <div class="campaign-card">
-        <a href="#" class="campaign-card-inner">
+        <a
+          routerLink="/campaigns/{{ campaign.slug }}"
+          class="campaign-card-inner"
+        >
           <div class="campaign-image">
             <div class="image-wrapper">
               <img src="{{ campaign.file.path }}" />

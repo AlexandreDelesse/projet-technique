@@ -83,7 +83,7 @@ class RegisterController extends Controller
         return response()->json([
             'message' => 'Successfully registred.',
             'key' => $response['key'],
-            'user' => $user
+            'user' => $user->load('campaigns')
         ], 201);
     }
 }

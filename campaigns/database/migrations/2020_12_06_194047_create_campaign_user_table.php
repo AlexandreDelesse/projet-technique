@@ -18,7 +18,7 @@ class CreateCampaignUserTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->timestamp('date');
 
-            $table->primary(['campaign_id', 'user_id', 'date']);
+            $table->primary(['campaign_id', 'user_id']);
         });
     }
 

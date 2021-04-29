@@ -54,6 +54,6 @@ class User extends Authenticatable
     }
 
     public function adress() {
-        return $this->belongsTo(Adress::class);
+        return $this->belongsTo(Adress::class)->withPivot('date');
     }
 }
