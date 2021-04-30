@@ -30,10 +30,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         
     - uses: google-github-actions/setup-gcloud@master
-              with:
-                  version: '275.0.0'
-                  service_account_email: ${{ secrets.SA_EMAIL }}
-                  service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+      with:
+          version: '275.0.0'
+          service_account_email: ${{ secrets.SA_EMAIL }}
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
                   
     - name: install dependenties
       run: |
@@ -51,22 +51,22 @@ jobs:
         mv ./Dockerfile ./dist
     
     - name: gcloud Set up
-        run: |
-          cd client/dist
-          gcloud config set project $PROJECT_ID
+      run: |
+        cd client/dist
+        gcloud config set project $PROJECT_ID
           
     # Build and push image to Google Container Registry
     - name: Build
-       run: |
-          gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+      run: |
+        gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
           
     # Deploy image to Cloud Run
     - name: Deploy
-        run: |
-            gcloud run deploy $SERVICE_NAME \
-              --region $RUN_REGION \
-              --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
-              --platform managed
+      run: |
+          gcloud run deploy $SERVICE_NAME \
+            --region $RUN_REGION \
+            --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+            --platform managed
                   
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
