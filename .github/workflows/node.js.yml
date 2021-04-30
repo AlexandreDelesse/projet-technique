@@ -55,7 +55,7 @@ jobs:
     - name: gcloud Set up
       run: |
         cd client/dist
-        gcloud config set project $PROJECT_ID
+        gcloud config set project ${{ secrets.PROJECT_ID }}
           
     # Build and push image to Google Container Registry
     - name: Build
