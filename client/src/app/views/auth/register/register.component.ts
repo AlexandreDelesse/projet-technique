@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@app/models/user';
 import { LoginService } from '@app/services/login/login.service';
-// test commentaire 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
