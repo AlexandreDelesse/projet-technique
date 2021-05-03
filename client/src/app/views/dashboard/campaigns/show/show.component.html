@@ -1,0 +1,58 @@
+<div class="row" *ngIf="!isLoading && campaign">
+  <div class="col-md-12">
+    <h4 class="dashboard-heading">{{ campaign.title }}</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table
+        datatable
+        class="row-border hover stripe"
+        [dtOptions]="dtOptions"
+        *ngIf="!isLoading"
+      >
+        <thead>
+          <tr>
+            <th>Nom prénom</th>
+            <th>Email</th>
+            <th>Groupe sanguin</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="campaign.users?.length != 0">
+          <tr *ngFor="let user of campaign.users">
+            <td class="nowrap">{{ user.firstname }} {{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.bloodgroup.title }}</td>
+            <td class="nowrap">{{ user.pivot.date }}</td>
+            <td class="actions">
+              <div class="d-flex">
+                <a
+                  class="text-danger px-1"
+                  role="button"
+                  title="Annuler"
+                  (click)="cancel(campaign.slug, user.id)"
+                >
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="campaign.users.length == 0">
+          <tr>
+            <td colspan="5" class="no-data-available">
+              Aucune donnée disponible
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Le rendez-vous a été bien annulé.'"
+></app-flash-alert>

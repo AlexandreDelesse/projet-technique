@@ -21,6 +21,7 @@ Route::patch('/campaigns/{campaign}', 'CampaignsController@update')->name('campa
 Route::delete('/campaigns/{campaign}', 'CampaignsController@destroy')->name('campaigns.destroy');
 
 Route::post('/campaigns/{campaign}/appointements', 'AppointementsController@store')->name('appointments.store');
+Route::delete('/campaigns/{campaign}/appointments/{user}', 'AppointementsController@destroy')->name('appointments.destroy');
 
 Route::post('/files', 'FilesController@store')->name('files.store');
 

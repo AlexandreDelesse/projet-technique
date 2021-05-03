@@ -80,7 +80,7 @@ class CampaignsController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        return $campaign->load(['file', 'adress']);
+        return $campaign->load(['file', 'adress', 'users.bloodgroup']);
     }
 
     /**

@@ -35,7 +35,12 @@
             <td class="nowrap">{{ campaign.created_at | date: "medium" }}</td>
             <td class="actions">
               <div class="d-flex">
-                <a class="text-primary px-1" role="button" title="Détails">
+                <a
+                  class="text-primary px-1"
+                  role="button"
+                  title="Voir les rendez-vous"
+                  routerLink="/dashboard/campaigns/{{ campaign.slug }}"
+                >
                   <fa-icon [icon]="faEye"></fa-icon>
                 </a>
                 <a class="text-success px-1" role="button" title="Modifier">

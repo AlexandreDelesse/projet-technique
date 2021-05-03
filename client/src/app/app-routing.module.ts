@@ -13,6 +13,7 @@ import { AvatarComponent } from './views/dashboard/avatar/avatar.component';
 import { HomeComponent } from './views/home/home.component';
 import { IndexComponent as CampaignsIndexComponent } from './views/dashboard/campaigns/index/index.component';
 import { ShowComponent } from './views/campaigns/show/show.component';
+import { ShowComponent as DashboardShowComponent } from '@app/views/dashboard/campaigns/show/show.component';
 
 const routes: Routes = [
   {
@@ -35,11 +36,13 @@ const routes: Routes = [
       { path: 'profile/avatar', component: AvatarComponent },
       { path: 'campaigns', component: CampaignsIndexComponent },
       { path: 'campaigns/create', component: CreateCampaignComponent },
+      { path: 'campaigns/:slug', component: DashboardShowComponent },
     ],
     canActivate: [AuthGuard],
   },
   { path: '', component: HomeComponent }, // Should be a landing page not redirect
-  { path: '**', component: PageNotFoundComponentComponent }, // 404
+  { path: '404', component: PageNotFoundComponentComponent },
+  { path: '**', redirectTo: '404' }, // 404
 ];
 
 @NgModule({

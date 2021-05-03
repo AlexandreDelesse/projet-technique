@@ -1,4 +1,5 @@
 import { File } from './file';
+import { User } from './user';
 
 export class Campaign {
   constructor(
@@ -10,6 +11,7 @@ export class Campaign {
     public created_at: string | null,
     public adress: any,
     public file: File,
+    public users: User[],
     public slug?: string,
     public updated_at?: Date,
     public id?: number

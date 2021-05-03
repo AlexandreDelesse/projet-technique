@@ -12,4 +12,10 @@ export class AppointementService {
   store(slug: any, data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/${slug}/appointements`, data);
   }
+
+  cancel(campaign_id: any, user_id: any): Observable<any> {
+    return this.http.delete(
+      `${this.baseUrl}/${campaign_id}/appointments/${user_id}`
+    );
+  }
 }

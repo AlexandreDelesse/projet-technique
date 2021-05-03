@@ -30,6 +30,7 @@ import { SearchFormComponent } from './views/search-form/search-form.component';
 import { IndexComponent } from './views/dashboard/campaigns/index/index.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ShowComponent } from './views/campaigns/show/show.component';
+import { ShowComponent as DashboardShowComponent } from './views/dashboard/campaigns/show/show.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ShowComponent } from './views/campaigns/show/show.component';
     SearchFormComponent,
     IndexComponent,
     ShowComponent,
+    DashboardShowComponent,
   ],
   imports: [
     BrowserModule,

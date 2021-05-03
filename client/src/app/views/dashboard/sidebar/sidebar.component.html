@@ -1,24 +1,24 @@
 <nav class="dashboard-sidebar">
-  <h6 class="sidebar-heading">My profile</h6>
+  <h6 class="sidebar-heading">Mon compte</h6>
   <div class="sidebar-item">
-    <a routerLink="/dashboard/profile"> Personal informations </a>
+    <a routerLink="/dashboard/profile">Informations personnelles </a>
   </div>
   <div class="sidebar-item">
     <a routerLink="/dashboard/profile/avatar">Avatar</a>
   </div>
   <div class="sidebar-item">
-    <a href="#">Email Settings</a>
+    <a href="#">Paramtètres emails</a>
   </div>
   <div class="sidebar-item">
-    <a href="#">Change password</a>
+    <a href="#">Mot de passe</a>
   </div>
   <ng-container *ngIf="user.type >= 1">
-    <h6 class="sidebar-heading mt-3">Campaigns</h6>
+    <h6 class="sidebar-heading mt-3">Campagnes</h6>
     <div class="sidebar-item">
-      <a routerLink="/dashboard/campaigns">Campaigns</a>
+      <a routerLink="/dashboard/campaigns">Campagnes</a>
     </div>
     <div class="sidebar-item">
-      <a routerLink="campaigns/create">Add a campaign</a>
+      <a routerLink="campaigns/create">Ajouter une campagne</a>
     </div>
   </ng-container>
 </nav>

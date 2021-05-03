@@ -17,6 +17,8 @@ export class User {
   bloodgroup_id?: number;
   id?: number;
   birthdate?: Date;
+  pivot?: any;
+  bloodgroup?: any;
 
   getFullName(): string {
     return `${this.firstname} ${this.lastname}`;
