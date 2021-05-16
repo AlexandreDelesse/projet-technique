@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="dashboard-heading">Liste des campagnes</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table
+        datatable
+        class="row-border hover stripe"
+        [dtOptions]="dtOptions"
+        *ngIf="!isLoading"
+      >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Photo de profile</th>
+            <th>Nom prénom</th>
+            <th>Email</th>
+            <th>Date de naissance</th>
+            <th>Groupe sanguin</th>
+            <th>Sexe</th>
+            <th>Numéro de téléphone</th>
+            <th>Adresse</th>
+            <th>Type</th>
+            <th>Email activé</th>
+            <th>Google calendar</th>
+            <th>Inscrit le</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="users?.length != 0">
+          <tr *ngFor="let user of users">
+            <td class="nowrap">{{ user.id }}</td>
+            <td>
+              <img
+                *ngIf="user.avatar"
+                [src]="user.avatar"
+                class="rounded-circle"
+                style="width: 50px; height: 50px"
+              />
+            </td>
+            <td>{{ user.lastname }} {{ user.firstname }}</td>
+            <td>{{ user.email }}</td>
+            <td class="nowrap">{{ user.birthdate | date }}</td>
+            <td>{{ user.bloodgroup?.title }}</td>
+            <td>
+              {{
+                user.gender ? (user.gender == "Male" ? "Homme" : "Femme") : ""
+              }}
+            </td>
+            <td class="nowrap">{{ user.phone }}</td>
+            <td class="nowrap">{{ user.adress?.label }}</td>
+            <td>{{ user.type == 0 ? "Utilisateur" : "Administrateur" }}</td>
+            <td>{{ user.receive_emails ? "Oui" : "Non" }}</td>
+            <td>
+              {{
+                user.google_calendar_api_activated ? "Intégré" : "Pas intégré"
+              }}
+            </td>
+            <td class="nowrap">{{ user.created_at | date: "medium" }}</td>
+            <td class="actions">
+              <div class="d-flex">
+                <a
+                  class="text-success px-1"
+                  role="button"
+                  title="Modifier"
+                  routerLink="/dashboard/users/{{ user.id }}"
+                >
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+                <a class="text-danger px-1" role="button" title="Supprimer">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="users?.length == 0">
+          <tr>
+            <td colspan="3" class="no-data-available">
+              Aucune donnée disponible
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="'Supprimé!'"
+></app-flash-alert>
+<app-flash-alert
+  [show]="showErrorAlert"
+  message="Une erreur s'est produite, veuillez réessayer."
+  type="danger"
+></app-flash-alert>

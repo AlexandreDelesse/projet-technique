@@ -14,6 +14,11 @@ import { HomeComponent } from './views/home/home.component';
 import { IndexComponent as CampaignsIndexComponent } from './views/dashboard/campaigns/index/index.component';
 import { ShowComponent } from './views/campaigns/show/show.component';
 import { ShowComponent as DashboardShowComponent } from '@app/views/dashboard/campaigns/show/show.component';
+import { AppointmentsComponent } from './views/dashboard/appointments/appointments.component';
+import { PasswordComponent } from './views/dashboard/password/password.component';
+import { EmailsSettingComponent } from './views/dashboard/emails-setting/emails-setting.component';
+import { IndexComponent as UsersIndexComponent } from './views/dashboard/users/index/index.component';
+import { EditComponent } from './views/dashboard/users/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -34,9 +39,15 @@ const routes: Routes = [
     children: [
       { path: 'profile', component: ProfileComponent },
       { path: 'profile/avatar', component: AvatarComponent },
+      { path: 'oauth2callback', redirectTo: 'profile/emails-setting' },
+      { path: 'profile/password', component: PasswordComponent },
+      { path: 'profile/emails-setting', component: EmailsSettingComponent },
+      { path: 'my-appointments', component: AppointmentsComponent },
       { path: 'campaigns', component: CampaignsIndexComponent },
       { path: 'campaigns/create', component: CreateCampaignComponent },
       { path: 'campaigns/:slug', component: DashboardShowComponent },
+      { path: 'users', component: UsersIndexComponent },
+      { path: 'users/:id', component: EditComponent },
     ],
     canActivate: [AuthGuard],
   },

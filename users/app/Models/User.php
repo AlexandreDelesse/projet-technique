@@ -27,7 +27,9 @@ class User extends Authenticatable
         'avatar',
         'email',
         'password',
-        'adress_id'
+        'adress_id',
+        'birthdate',
+        'receive_emails'
     ];
 
     /**
@@ -38,6 +40,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google_calendar_token'
     ];
 
     /**
@@ -49,11 +52,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin(): bool{
+    public function isAdmin(): bool {
         return $this->type == 1;
     }
 
     public function adress() {
-        return $this->belongsTo(Adress::class)->withPivot('date');
+        return $this->belongsTo(Adress::class);
     }
 }

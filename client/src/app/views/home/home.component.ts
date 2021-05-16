@@ -45,12 +45,9 @@ export class HomeComponent implements OnInit {
     }
     this.campaignService.getCampaigns(params).subscribe(
       (data) => {
-        console.log(data);
         this.campaigns = data;
       },
-      (error) => {
-        console.log(error);
-      }
+      (error) => {}
     );
   }
 

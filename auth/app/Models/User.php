@@ -29,6 +29,8 @@ class User extends Authenticatable
         'phone',
         'adress',
         'password',
+        'google_calendar_api_activated',
+        'receive_emails'
     ];
 
     /**
@@ -39,6 +41,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google_calendar_token'
     ];
 
     /**

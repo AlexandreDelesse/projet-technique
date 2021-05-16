@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +31,13 @@ import { IndexComponent } from './views/dashboard/campaigns/index/index.componen
 import { DataTablesModule } from 'angular-datatables';
 import { ShowComponent } from './views/campaigns/show/show.component';
 import { ShowComponent as DashboardShowComponent } from './views/dashboard/campaigns/show/show.component';
+import { AppointmentsComponent } from './views/dashboard/appointments/appointments.component';
+import { PasswordComponent } from './views/dashboard/password/password.component';
+import { EmailsSettingComponent } from './views/dashboard/emails-setting/emails-setting.component';
+import { IndexComponent as UsersIndexComponenet } from '@app/views/dashboard/users/index/index.component';
+import { EditComponent } from './views/dashboard/users/edit/edit.component';
+import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import '@angular/common/locales/global/fr';
 
 @NgModule({
   declarations: [
@@ -53,6 +60,11 @@ import { ShowComponent as DashboardShowComponent } from './views/dashboard/campa
     IndexComponent,
     ShowComponent,
     DashboardShowComponent,
+    AppointmentsComponent,
+    PasswordComponent,
+    EmailsSettingComponent,
+    UsersIndexComponenet,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +80,13 @@ import { ShowComponent as DashboardShowComponent } from './views/dashboard/campa
     SweetAlert2Module.forRoot(),
     DataTablesModule,
   ],
-  providers: [httpInterceptorProviders, DatePipe, CampaignService],
+  providers: [
+    httpInterceptorProviders,
+    DatePipe,
+    CampaignService,
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'fr' },
+    { provide: LOCALE_ID, useValue: 'fr' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

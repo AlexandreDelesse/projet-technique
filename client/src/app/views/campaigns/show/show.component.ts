@@ -50,10 +50,10 @@ export class ShowComponent implements OnInit {
     this.loginService.currentUser.subscribe((user) => {
       this.user = user;
       this.form.bloodgroup_id = this.user.bloodgroup_id;
-      // this.alreadyBooked =
-      //   this.user.campaigns.findIndex(
-      //     (item: { id: number | undefined }) => item.id == this.campaign?.id
-      //   ) == -1;
+      this.alreadyBooked =
+        this.user.campaigns.findIndex(
+          (item: { id: number | undefined }) => item.id == this.campaign?.id
+        ) != -1;
     });
   }
 

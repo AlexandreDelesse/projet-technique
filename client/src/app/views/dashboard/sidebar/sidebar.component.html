@@ -7,10 +7,13 @@
     <a routerLink="/dashboard/profile/avatar">Avatar</a>
   </div>
   <div class="sidebar-item">
-    <a href="#">Paramtètres emails</a>
+    <a routerLink="/dashboard/profile/emails-setting">Paramètres emails</a>
   </div>
   <div class="sidebar-item">
-    <a href="#">Mot de passe</a>
+    <a routerLink="/dashboard/profile/password">Mot de passe</a>
+  </div>
+  <div class="sidebar-item">
+    <a routerLink="/dashboard/my-appointments">Mes rendez-vous</a>
   </div>
   <ng-container *ngIf="user.type >= 1">
     <h6 class="sidebar-heading mt-3">Campagnes</h6>
@@ -19,6 +22,10 @@
     </div>
     <div class="sidebar-item">
       <a routerLink="campaigns/create">Ajouter une campagne</a>
+    </div>
+    <h6 class="sidebar-heading mt-3">Administration</h6>
+    <div class="sidebar-item">
+      <a routerLink="/dashboard/users">Gestion des utilisateurs</a>
     </div>
   </ng-container>
 </nav>

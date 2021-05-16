@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Notification;
 
 class AppointementsController extends Controller
 {
+    public function index() {
+        return auth()->user()->campaigns()->with('adress')->get();
+    }
+    
     public function store(Campaign $campaign) {
         $data = request()->validate([
             'date' => 'required|date',

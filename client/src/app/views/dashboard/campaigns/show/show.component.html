@@ -2,7 +2,50 @@
   <div class="col-md-12">
     <h4 class="dashboard-heading">{{ campaign.title }}</h4>
   </div>
+  <div class="col-md-12 mb-4">
+    <h5 class="dashboard-subheading mb-3">Détails de la campagne</h5>
+    <div class="row">
+      <div class="col-md-3">
+        <h6 class="text-secondary">Titre :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.title }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Description :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.description }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Commence le :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.start_at | date: "medium" }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Termine le :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.end_at | date: "medium" }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Adresse :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.adress.label }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Ajoutée le :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.created_at | date: "medium" }}
+      </div>
+    </div>
+  </div>
+
   <div class="col-md-12">
+    <h5 class="dashboard-subheading mb-3">Liste des rendez-vous</h5>
     <div class="table-responsive">
       <table
         datatable

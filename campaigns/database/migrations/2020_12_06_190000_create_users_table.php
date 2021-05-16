@@ -25,8 +25,11 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->foreignId('adress_id')->nullable()->constrained()->onCascade('set null');
+            $table->boolean('receive_emails')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->json('google_calendar_token')->nullable();
+            $table->boolean('google_calendar_api_activated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

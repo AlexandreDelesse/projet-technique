@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="dashboard-heading">Paramètres des emails</h4>
+  </div>
+  <div class="col-md-12">
+    <form method="POST">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="receive_email"
+          name="receive_email"
+          [checked]="user.receive_emails"
+          (change)="update()"
+        />
+        <label class="form-check-label" for="receive_email">
+          Je souhaite recevoir des notifications
+        </label>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-12 mt-5">
+    <h5 class="dashboard-subheading">Google calendar</h5>
+    <div *ngIf="!googleIntegrationLoading">
+      <p class="text-muted" *ngIf="!user.google_calendar_api_activated">
+        Autoriser l'application a accéder a mon calendrier google.
+        <a href="{{ url }}">Autoriser</a>
+      </p>
+      <p class="text-muted" *ngIf="user.google_calendar_api_activated">
+        Vous avez autorisé l'accés a votre calendrier google.
+      </p>
+    </div>
+    <div *ngIf="googleIntegrationLoading">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Chargement...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-flash-alert
+  [show]="showSuccessAlert"
+  [message]="successMessage"
+></app-flash-alert>
+
+<app-flash-alert
+  [show]="showErrorAlert"
+  [message]="'Une erreur s\'est produit, veuillez réessayer. '"
+  [type]="'danger'"
+></app-flash-alert>

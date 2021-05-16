@@ -19,19 +19,15 @@ class UpdateUserRequest extends FormRequest
             'firstname' => 'sometimes|string',
             'lastname' => 'sometimes|string',
             'birthdate' => 'sometimes|date',
-            'adress' => 'sometimes|string',
             'phone' => 'sometimes',
             'bloodgroup_id' => 'sometimes|exists:bloodgroups,id',
-            'type' => [
-                'sometimes',
-                Rule::in(['0', '1'])
-            ],
             'gender' => [
                 'sometimes',
                 Rule::in(['Male', 'Female'])
             ],
             'avatar' => 'sometimes|url',
             'email' => 'sometimes|email',
+            'receive_emails' => 'sometimes|boolean'
         ];
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -17,7 +16,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return $users->load(['adress', 'campaigns']);
+        return $users;
     }
 
     /**
@@ -34,7 +33,7 @@ class UsersController extends Controller
        
         $data = $request->validated();
  
-        return User::create($data)->load(['adress', 'campaigns']);
+        return User::create($data)->load(['adress']);
     }
 
     /**
@@ -45,7 +44,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return $user->load(['adress', 'campaigns']);
+        return $user->load(['adress']);
     }
 
     /**
@@ -57,16 +56,14 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        if (auth()->user()->isAdmin() || auth()->id() == $user->id) {
+            $data = $request->validated();
 
-        if (!auth()->user()->isAdmin()) {
-            abort(403);
+            $user->update($data);
+
+            return $user;
         }
-        $data = $request->validated();
-
-        $user->update($data);
-
-        return $user->load(['adress', 'campaigns']);
-        
+        abort(403);
     }
 
     /**

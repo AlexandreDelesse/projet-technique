@@ -14,6 +14,7 @@ export class Campaign {
     public users: User[],
     public slug?: string,
     public updated_at?: Date,
-    public id?: number
+    public id?: number,
+    public pivot?: any
   ) {}
 }

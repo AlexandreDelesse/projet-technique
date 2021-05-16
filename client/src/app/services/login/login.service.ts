@@ -9,9 +9,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LoginService {
   baseUrl: string = 'http://127.0.0.1:8000/api';
 
-  private currentUserSource: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
-    User.getUserFromLocalStorage()
-  );
+  private currentUserSource: BehaviorSubject<User | null> =
+    new BehaviorSubject<User | null>(User.getUserFromLocalStorage());
   currentUser = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -45,6 +44,8 @@ export class LoginService {
   }
 
   updateCurrentUser(user: User | null) {
+    let userStr = JSON.stringify(user);
+    localStorage.setItem('user', userStr);
     this.currentUserSource.next(user);
   }
 

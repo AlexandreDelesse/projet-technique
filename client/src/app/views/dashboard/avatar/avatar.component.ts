@@ -41,9 +41,7 @@ export class AvatarComponent implements OnInit {
           })
           .subscribe(
             (user) => {
-              let userStr = JSON.stringify(user);
-              localStorage.setItem('user', userStr);
-              this.user = user;
+              this.loginService.updateCurrentUser(user);
               this.isLoading = false;
               this.showSuccessAlert = true;
               setTimeout(() => {

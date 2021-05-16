@@ -32,7 +32,7 @@
         id="userDropdown"
         role="button"
       >
-        {{ user.getFullName() }}
+        {{ user.firstname }} {{ user.lastname }}
         <div
           class="avatar"
           [style.background-image]="'url(' + user.avatar + ')'"

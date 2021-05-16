@@ -8,6 +8,8 @@ export class User {
   updated_at!: Date;
   created_at!: Date;
   campaigns!: Campaign[];
+  google_calendar_api_activated!: boolean;
+  receive_emails!: boolean;
   avatar?: string;
   phone?: string;
   gender?: string;
