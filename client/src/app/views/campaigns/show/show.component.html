@@ -43,7 +43,7 @@
               [(ngModel)]="form.bloodgroup_id"
               #blood="ngModel"
             >
-              <option value="" disabled>
+              <option [ngValue]="null" disabled>
                 Séléctionnez votre groupe sanguin
               </option>
               <option value="1">A <sup>+</sup></option>
@@ -66,25 +66,26 @@
           </div>
         </div>
         <div class="form-row mb-3">
-          <label for="date" class="col-sm-3 col-form-label">Horaire</label>
+          <label for="slot" class="col-sm-3 col-form-label">Horaire</label>
           <div class="col-sm-9">
-            <input
-              id="date"
+            <select
               class="form-control"
-              type="datetime"
-              [owlDateTime]="dt1"
-              [owlDateTimeTrigger]="dt1"
-              [(ngModel)]="form.date"
-              #date="ngModel"
-              name="date"
+              id="slot"
+              name="blood"
               required
-            />
-            <owl-date-time #dt1></owl-date-time>
+              [(ngModel)]="form.slot"
+              #slot="ngModel"
+            >
+              <option [ngValue]="null" disabled>Séléctionnez un créneau</option>
+              <option *ngFor="let slot of slots" [value]="slot">
+                {{ slot | date: "short" }}
+              </option>
+            </select>
             <small
               class="form-help text-danger"
-              *ngIf="date.invalid && (date.dirty || date.touched)"
+              *ngIf="slot.invalid && (slot.dirty || slot.touched)"
             >
-              <span *ngIf="date.errors && date.errors.required">
+              <span *ngIf="slot.errors && slot.errors.required">
                 Veuillez choisir un créneau.
               </span>
             </small>
@@ -118,13 +119,13 @@
         <b>
           <i class="mr-2"><fa-icon [icon]="faCalendar"></fa-icon></i> Du :
         </b>
-        {{ campaign.start_at | date: "medium" }}
+        {{ campaign.start_date | date }}
       </p>
       <p class="campaign-detail">
         <b>
           <i class="mr-2"><fa-icon [icon]="faCalendar"></fa-icon></i> Au :
         </b>
-        {{ campaign.end_at | date: "medium" }}
+        {{ campaign.end_date | date }}
       </p>
     </div>
   </div>

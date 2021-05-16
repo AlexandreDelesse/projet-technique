@@ -3,9 +3,9 @@
 Hello {{ $notifiable->firstname }}, a new blood donating campaign nearby you :
 <br>
 <br>
-<b>From :</b> {{ $campaign->start_at }}
+<b>From :</b> {{ $campaign->start_date }}
 <br>
-<b>To :</b> {{ $campaign->end_at }}
+<b>To :</b> {{ $campaign->end_date }}
 <br>
 <b>Adress :</b> {{ $campaign->adress->label }}
 

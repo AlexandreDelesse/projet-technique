@@ -73,4 +73,8 @@ class User extends Authenticatable
     public function bloodgroup() {
         return $this->belongsTo(Bloodgroup::class);
     }
+
+    public function google_calendar_events() {
+        return $this->hasMany(GoogleCalendarEvents::class);
+    }
 }

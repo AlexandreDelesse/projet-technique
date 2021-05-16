@@ -20,9 +20,11 @@ class CreateCampaignsTable extends Migration
             $table->text('description');
             $table->foreignId('adress_id')->nullable()->constrained();
             $table->foreignId('file_id')->nullable()->constrained();
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
-            $table->unsignedInteger('capacity');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->unsignedInteger('slot_duration');
             $table->timestamps();
         });
     }

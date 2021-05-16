@@ -44,11 +44,11 @@ class Campaign extends Model
                 $query2->where('city', request('city'));
             });
         }
-        if(request()->has('start_at')) {
-            $query->whereDate('start_at', '>=', request('start_at'));
+        if(request()->has('start_date')) {
+            $query->whereDate('start_date', '>=', request('start_date'));
         }
-        if(request()->has('end_at')) {
-            $query->orWhereDate('end_at', '<=', request('end_at'));
+        if(request()->has('end_date')) {
+            $query->orWhereDate('end_date', '<=', request('end_date'));
         }
         return $query;
     }

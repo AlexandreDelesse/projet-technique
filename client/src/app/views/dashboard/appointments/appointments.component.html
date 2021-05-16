@@ -21,7 +21,7 @@
         </thead>
         <tbody *ngIf="campaigns?.length != 0">
           <tr *ngFor="let campaign of campaigns">
-            <td class="nowrap">{{ campaign.pivot.date }}</td>
+            <td class="nowrap">{{ campaign.pivot.date | date: "short" }}</td>
             <td>{{ campaign.adress.label }}</td>
             <td>
               <a routerLink="/campaigns/{{ campaign.slug }}">{{

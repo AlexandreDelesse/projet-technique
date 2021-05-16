@@ -5,13 +5,12 @@
   <div class="col-md-12">
     <form (ngSubmit)="onSubmit(); form.reset()" #form="ngForm">
       <div class="form-row mb-3">
-        <label for="title" class="col-sm-2 col-form-label">Titre</label>
-        <div class="col-sm-10">
+        <label for="title" class="col-sm-3 col-form-label">Titre</label>
+        <div class="col-sm-9">
           <input
             type="text"
             class="form-control"
             id="title"
-            placeholder="Enter title"
             name="title"
             [(ngModel)]="campaign.title"
             #title="ngModel"
@@ -28,10 +27,10 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="description" class="col-sm-2 col-form-label"
+        <label for="description" class="col-sm-3 col-form-label"
           >Description</label
         >
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <textarea
             class="form-control"
             id="description"
@@ -53,10 +52,10 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="file" class="col-sm-2 col-form-label"
+        <label for="file" class="col-sm-3 col-form-label"
           >Photo de couverture</label
         >
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <input
             type="file"
             id="file"
@@ -67,13 +66,13 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="adress" class="col-sm-2 col-form-label">Adresse</label>
-        <div class="col-sm-10">
+        <label for="adress" class="col-sm-3 col-form-label">Adresse</label>
+        <div class="col-sm-9">
           <input
             id="adress"
             type="text"
             class="form-control"
-            [(ngModel)]="adress"
+            [(ngModel)]="campaign.adress"
             [ngbTypeahead]="search"
             [resultFormatter]="formatter"
             [inputFormatter]="formatter"
@@ -95,43 +94,20 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="capacity" class="col-sm-2 col-form-label">Capacité</label>
-        <div class="col-sm-10">
-          <input
-            type="number"
-            class="form-control"
-            id="capacity"
-            placeholder="Max number of participants"
-            [(ngModel)]="campaign.capacity"
-            #capacity="ngModel"
-            name="capacity"
-            required
-          />
-          <small
-            class="form-help text-danger"
-            *ngIf="capacity.invalid && (capacity.dirty || capacity.touched)"
-          >
-            <span *ngIf="capacity.errors && capacity.errors.required">
-              Le champ capacité est obligatoire.
-            </span>
-          </small>
-        </div>
-      </div>
-      <div class="form-row mb-3">
-        <label for="start_at" class="col-sm-2 col-form-label">Date début</label>
-        <div class="col-sm-10">
+        <label for="start_at" class="col-sm-3 col-form-label">Date début</label>
+        <div class="col-sm-9">
           <input
             id="start_at"
             class="form-control"
             type="datetime"
             [owlDateTime]="dt1"
             [owlDateTimeTrigger]="dt1"
-            [(ngModel)]="start_at"
+            [(ngModel)]="campaign.start_date"
             #start_atInput="ngModel"
-            name="start_at"
+            name="start_date"
             required
           />
-          <owl-date-time #dt1></owl-date-time>
+          <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -146,20 +122,20 @@
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="end_at" class="col-sm-2 col-form-label">Date fin</label>
-        <div class="col-sm-10">
+        <label for="end_at" class="col-sm-3 col-form-label">Date fin</label>
+        <div class="col-sm-9">
           <input
             id="end_at"
             class="form-control"
             type="datetime"
             [owlDateTime]="dt2"
             [owlDateTimeTrigger]="dt2"
-            [(ngModel)]="end_at"
+            [(ngModel)]="campaign.end_date"
             #end_atInput="ngModel"
-            name="end_at"
+            name="end_date"
             required
           />
-          <owl-date-time #dt2></owl-date-time>
+          <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -168,6 +144,91 @@
           >
             <span *ngIf="end_atInput.errors && end_atInput.errors.required">
               Le champ date fin est obligatoire.
+            </span>
+          </small>
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="start_time" class="col-sm-3 col-form-label"
+          >Commence à</label
+        >
+        <div class="col-sm-9">
+          <input
+            id="start_time"
+            class="form-control"
+            [owlDateTime]="dt3"
+            [owlDateTimeTrigger]="dt3"
+            [(ngModel)]="campaign.start_time"
+            #startTimeInput="ngModel"
+            name="start_time"
+            required
+          />
+          <owl-date-time #dt3 pickerType="timer"></owl-date-time>
+          <small
+            class="form-help text-danger"
+            *ngIf="
+              startTimeInput.invalid &&
+              (startTimeInput.dirty || startTimeInput.touched)
+            "
+          >
+            <span
+              *ngIf="startTimeInput.errors && startTimeInput.errors.required"
+            >
+              Ce champ est obligatoire.
+            </span>
+          </small>
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="end_time" class="col-sm-3 col-form-label">Termine à</label>
+        <div class="col-sm-9">
+          <input
+            id="end_time"
+            class="form-control"
+            [owlDateTime]="dt4"
+            [owlDateTimeTrigger]="dt4"
+            [(ngModel)]="campaign.end_time"
+            #endTimeInput="ngModel"
+            name="end_time"
+            required
+          />
+          <owl-date-time #dt4 pickerType="timer"></owl-date-time>
+          <small
+            class="form-help text-danger"
+            *ngIf="
+              endTimeInput.invalid &&
+              (endTimeInput.dirty || endTimeInput.touched)
+            "
+          >
+            <span *ngIf="endTimeInput.errors && endTimeInput.errors.required">
+              Ce champ est obligatoire.
+            </span>
+          </small>
+        </div>
+      </div>
+      <div class="form-row mb-3">
+        <label for="slot_duration" class="col-sm-3 col-form-label"
+          >Durée de créneau</label
+        >
+        <div class="col-sm-9">
+          <input
+            type="number"
+            class="form-control"
+            id="slot_duration"
+            [(ngModel)]="campaign.slot_duration"
+            #slot_duration="ngModel"
+            name="slot_duration"
+            required
+          />
+          <small
+            class="form-help text-danger"
+            *ngIf="
+              slot_duration.invalid &&
+              (slot_duration.dirty || slot_duration.touched)
+            "
+          >
+            <span *ngIf="slot_duration.errors && slot_duration.errors.required">
+              Le champ capacité est obligatoire.
             </span>
           </small>
         </div>

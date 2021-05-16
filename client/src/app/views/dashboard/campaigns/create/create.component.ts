@@ -13,15 +13,17 @@ import * as moment from 'moment';
 })
 export class CreateCampaignComponent implements OnInit {
   isLoading = false;
-  campaign = {
+  campaign: any = {
     title: '',
     description: '',
-    capacity: '',
+    slot_duration: '',
+    start_date: new Date(),
+    end_date: new Date(),
+    start_time: new Date(0, 0, 0, 8, 0),
+    end_time: new Date(0, 0, 0, 17, 0),
+    adress: { properties: {} },
+    file: {},
   };
-  start_at = new Date();
-  end_at = new Date();
-  adress: any;
-  file: any;
   showSuccessAlert = false;
   showErrorAlert = false;
 
@@ -49,18 +51,26 @@ export class CreateCampaignComponent implements OnInit {
   }
 
   onChange(e: any) {
-    this.file = e.target.files[0];
+    this.campaign.file = e.target.files[0];
   }
 
   onSubmit(): void {
     var formData: FormData = new FormData();
-    formData.append('file', this.file);
+    formData.append('file', this.campaign.file);
     this.isLoading = true;
     let data = {
       ...this.campaign,
-      adress: this.adress.properties,
-      start_at: moment(this.start_at).format('YYYY-MM-DD hh:mm:ss'),
-      end_at: moment(this.end_at).format('YYYY-MM-DD hh:mm:ss'),
+      adress: this.campaign.adress.properties,
+      start_date: moment(this.campaign.start_date).format('YYYY-MM-DD'),
+      end_date: moment(this.campaign.end_date).format('YYYY-MM-DD'),
+      start_time:
+        ('0' + this.campaign.start_time.getHours()).slice(-2) +
+        ':' +
+        ('0' + this.campaign.start_time.getMinutes()).slice(-2),
+      end_time:
+        ('0' + this.campaign.end_time.getHours()).slice(-2) +
+        ':' +
+        ('0' + this.campaign.end_time.getMinutes()).slice(-2),
     };
 
     this.fileUploadService.upload(formData).subscribe(

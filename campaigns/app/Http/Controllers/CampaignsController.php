@@ -55,9 +55,11 @@ class CampaignsController extends Controller
             'slug' => Str::slug($data['title']),
             'title' => $data['title'],
             'description' => $data['description'],
-            'capacity' => $data['capacity'],
-            'start_at' => $data['start_at'],
-            'end_at' => $data['end_at'],
+            'slot_duration' => $data['slot_duration'],
+            'start_date' => $data['start_date'],
+            'end_date' => $data['end_date'],
+            'start_time' => $data['start_time'],
+            'end_time' => $data['end_time'],
             'adress_id' => $adress->id,
             'file_id' => $data['file_id']
         ]);
@@ -65,6 +67,8 @@ class CampaignsController extends Controller
         Notification::send(
             User::whereHas('adress', function($query) use ($campaign) {
                 $query->where('city', $campaign->adress->city);
+            })->orWhereHas('google_calendar_events', function($query) use ($data) {
+                $query->where('location', 'like', '%' . $data['adress']['city'] . ', France');
             })->get(), 
             new CampaignCreated($campaign)
         );
