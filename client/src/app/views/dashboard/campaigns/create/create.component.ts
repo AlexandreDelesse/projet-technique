@@ -5,6 +5,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AdressService } from '@app/services/adress.service';
 import { FileUploadService } from '@app/services/file-upload.service';
 import * as moment from 'moment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-campaign',
@@ -26,6 +27,7 @@ export class CreateCampaignComponent implements OnInit {
   };
   showSuccessAlert = false;
   showErrorAlert = false;
+  errors: any = {};
 
   constructor(
     private campaignService: CampaignService,
@@ -89,6 +91,10 @@ export class CreateCampaignComponent implements OnInit {
               this.isLoading = false;
             },
             (error) => {
+              if (error.status == 422) {
+                this.errors = error.error.errors;
+              }
+              console.log(this.errors);
               this.showErrorAlert = true;
               setTimeout(() => {
                 this.showErrorAlert = false;
@@ -98,7 +104,9 @@ export class CreateCampaignComponent implements OnInit {
           );
       },
       (error) => {
-        console.log(error);
+        if (error.status == 422) {
+          this.errors = error.error.errors;
+        }
         this.isLoading = false;
       }
     );

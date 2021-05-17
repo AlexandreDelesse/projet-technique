@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Campaign } from '@app/models/campaign';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { faEye, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-index',
@@ -16,10 +17,12 @@ export class IndexComponent implements OnInit {
   faPen = faPen;
   faEye = faEye;
   showSuccessAlert = false;
+  campaign!: Campaign;
 
   constructor(
     private campaignService: CampaignService,
-    private http: HttpClient
+    private http: HttpClient,
+    private modalService: NgbModal
   ) {}
 
   dtOptions: DataTables.Settings = {};
@@ -66,17 +69,21 @@ export class IndexComponent implements OnInit {
     );
   }
 
-  delete(campaign: Campaign) {
-    if (campaign.slug) {
-      this.campaignService.deleteCampain(campaign.slug).subscribe(
+  open(content: any, campaign: Campaign) {
+    this.modalService.open(content);
+    this.campaign = campaign;
+  }
+
+  delete() {
+    if (this.campaign.slug) {
+      this.campaignService.deleteCampain(this.campaign.slug).subscribe(
         (response) => {
           let index = this.campaigns?.findIndex(
-            (item) => item.id == campaign.id
+            (item) => item.id == this.campaign.id
           );
           if (index) {
             this.campaigns?.splice(index, 1);
           }
-          console.log(response);
           this.showSuccessAlert = true;
           setTimeout(() => {
             this.showSuccessAlert = false;

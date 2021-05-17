@@ -18,22 +18,40 @@
         {{ campaign.description }}
       </div>
       <div class="col-md-3">
-        <h6 class="text-secondary">Commence le :</h6>
+        <h6 class="text-secondary">Du :</h6>
       </div>
       <div class="col-md-9">
-        {{ campaign.start_date | date: "medium" }}
+        {{ campaign.start_date | date: "shortDate" }}
       </div>
       <div class="col-md-3">
-        <h6 class="text-secondary">Termine le :</h6>
+        <h6 class="text-secondary">Au:</h6>
       </div>
       <div class="col-md-9">
-        {{ campaign.end_date | date: "medium" }}
+        {{ campaign.end_date | date: "shortDate" }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Commence à :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.start_time.substr(0, 5) }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Termine à :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.end_time.substr(0, 5) }}
       </div>
       <div class="col-md-3">
         <h6 class="text-secondary">Adresse :</h6>
       </div>
       <div class="col-md-9">
         {{ campaign.adress.label }}
+      </div>
+      <div class="col-md-3">
+        <h6 class="text-secondary">Nombre de personnes insrites :</h6>
+      </div>
+      <div class="col-md-9">
+        {{ campaign.users.length }}
       </div>
       <div class="col-md-3">
         <h6 class="text-secondary">Ajoutée le :</h6>
@@ -79,14 +97,6 @@
                   <fa-icon [icon]="faTrash"></fa-icon>
                 </a>
               </div>
-            </td>
-          </tr>
-        </tbody>
-
-        <tbody *ngIf="campaign.users.length == 0">
-          <tr>
-            <td colspan="5" class="no-data-available">
-              Aucune donnée disponible
             </td>
           </tr>
         </tbody>

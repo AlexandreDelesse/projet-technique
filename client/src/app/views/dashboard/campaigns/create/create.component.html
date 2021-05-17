@@ -3,7 +3,7 @@
     <h4 class="dashboard-heading">Ajouter une campagne</h4>
   </div>
   <div class="col-md-12">
-    <form (ngSubmit)="onSubmit(); form.reset()" #form="ngForm">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-row mb-3">
         <label for="title" class="col-sm-3 col-form-label">Titre</label>
         <div class="col-sm-9">
@@ -15,7 +15,11 @@
             [(ngModel)]="campaign.title"
             #title="ngModel"
             required
+            (keydown)="errors.title = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.title">
+            {{ errors.title[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="title.invalid && (title.dirty || title.touched)"
@@ -38,7 +42,11 @@
             [(ngModel)]="campaign.description"
             #description="ngModel"
             required
+            (keydown)="errors.description = []"
           ></textarea>
+          <small class="form-help text-danger" *ngIf="errors.description">
+            {{ errors.description[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -62,7 +70,11 @@
             class="form-control-file"
             (change)="onChange($event)"
             required
+            (keydown)="errors.file = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.file">
+            {{ errors.file[0] }}
+          </small>
         </div>
       </div>
       <div class="form-row mb-3">
@@ -80,7 +92,11 @@
             #adressInput="ngModel"
             name="adress"
             required
+            (keydown)="errors.adress = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.adress">
+            {{ errors.adress[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -106,8 +122,12 @@
             #start_atInput="ngModel"
             name="start_date"
             required
+            (keydown)="errors.start_date = []"
           />
           <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
+          <small class="form-help text-danger" *ngIf="errors.start_date">
+            {{ errors.start_date[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -134,8 +154,12 @@
             #end_atInput="ngModel"
             name="end_date"
             required
+            (keydown)="errors.end_date = []"
           />
           <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
+          <small class="form-help text-danger" *ngIf="errors.end_date">
+            {{ errors.end_date[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -162,8 +186,12 @@
             #startTimeInput="ngModel"
             name="start_time"
             required
+            (keydown)="errors.start_time = []"
           />
           <owl-date-time #dt3 pickerType="timer"></owl-date-time>
+          <small class="form-help text-danger" *ngIf="errors.start_time">
+            {{ errors.start_time[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -191,8 +219,12 @@
             #endTimeInput="ngModel"
             name="end_time"
             required
+            (keydown)="errors.end_time = []"
           />
           <owl-date-time #dt4 pickerType="timer"></owl-date-time>
+          <small class="form-help text-danger" *ngIf="errors.end_time">
+            {{ errors.end_time[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="
@@ -219,7 +251,11 @@
             #slot_duration="ngModel"
             name="slot_duration"
             required
+            (keydown)="errors.slot_duration = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.slot_duration">
+            {{ errors.slot_duration[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="

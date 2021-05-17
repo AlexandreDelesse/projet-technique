@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="user">
   <div class="col-md-12 mb-3">
     <h4 class="dashboard-heading">Informations personelles</h4>
 
@@ -20,7 +20,11 @@
             #firstname="ngModel"
             name="firstname"
             required
+            (keydown)="errors.firstname = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.firstname">
+            {{ errors.firstname[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
@@ -42,7 +46,11 @@
             #lastname="ngModel"
             name="lastname"
             required
+            (keydown)="errors.lastname = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.lastname">
+            {{ errors.lastname[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
@@ -67,7 +75,11 @@
             [(ngModel)]="user.birthdate"
             #birthdate="ngModel"
             name="birthdate"
+            (keydown)="errors.birthdate = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.birthdate">
+            {{ errors.birthdate[0] }}
+          </small>
           <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
         </div>
       </div>
@@ -82,6 +94,7 @@
             name="blood"
             [(ngModel)]="user.bloodgroup_id"
             #blood="ngModel"
+            (keydown)="errors.bloodgroup_id = []"
           >
             <option value="" disabled>Séléctionnez votre groupe sanguin</option>
             <option value="1">A <sup>+</sup></option>
@@ -93,6 +106,9 @@
             <option value="8">O <sup>+</sup></option>
             <option value="9">O <sup>-</sup></option>
           </select>
+          <small class="form-help text-danger" *ngIf="errors.bloodgroup_id">
+            {{ errors.bloodgroup_id[0] }}
+          </small>
         </div>
       </div>
       <div class="form-group row">
@@ -104,10 +120,14 @@
             name="gender"
             [(ngModel)]="user.gender"
             #gender="ngModel"
+            (keydown)="errors.gender = []"
           >
             <option value="Male">Homme</option>
             <option value="Female">Femme</option>
           </select>
+          <small class="form-help text-danger" *ngIf="errors.gender">
+            {{ errors.gender[0] }}
+          </small>
         </div>
       </div>
       <div class="form-group row">
@@ -122,7 +142,11 @@
             name="email"
             required
             email
+            (keydown)="errors.email = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.email">
+            {{ errors.email[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="email.invalid && (email.dirty || email.touched)"
@@ -148,7 +172,11 @@
             [(ngModel)]="user.phone"
             #phone="ngModel"
             name="phone"
+            (keydown)="errors.phone = []"
           />
+          <small class="form-help text-danger" *ngIf="errors.phone">
+            {{ errors.phone[0] }}
+          </small>
           <small
             class="form-help text-danger"
             *ngIf="phone.invalid && (phone.dirty || phone.touched)"
@@ -172,11 +200,7 @@
 
     <h5 class="dashboard-subheading">Mon Adresse</h5>
 
-    <form
-      method="POST"
-      (ngSubmit)="changeAdress(); adressForm.reset()"
-      #adressForm="ngForm"
-    >
+    <form method="POST" (ngSubmit)="changeAdress()" #adressForm="ngForm">
       <div class="form-group">
         <label for="label">Adresse</label>
         <input

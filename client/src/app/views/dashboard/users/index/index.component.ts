@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@app/models/user';
+import { LoginService } from '@app/services/login/login.service';
 import { UserService } from '@app/services/user.service';
 import { faEye, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-index',
@@ -17,10 +19,45 @@ export class IndexComponent implements OnInit {
   users?: User[];
   showSuccessAlert = false;
   showErrorAlert = false;
+  user!: User;
+  currentUser: any;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private modalService: NgbModal,
+    private loginService: LoginService
+  ) {}
+
+  open(content: any, user: User) {
+    this.modalService.open(content);
+    this.user = user;
+  }
+
+  delete() {
+    if (this.user.id) {
+      this.userService.delete(this.user.id).subscribe(
+        () => {
+          this.showSuccessAlert = true;
+          setTimeout(() => {
+            this.showSuccessAlert = false;
+          }, 5000);
+          let index = this.users?.findIndex((user) => user.id == this.user.id);
+          if (index) this.users?.splice(index, 1);
+        },
+        (error) => {
+          this.showErrorAlert = true;
+          setTimeout(() => {
+            this.showErrorAlert = false;
+          }, 5000);
+        }
+      );
+    }
+  }
 
   ngOnInit(): void {
+    this.loginService.currentUser.subscribe((user) => {
+      this.currentUser = user;
+    });
     this.dtOptions = {
       language: {
         lengthMenu: 'Afficher _MENU_ par page',

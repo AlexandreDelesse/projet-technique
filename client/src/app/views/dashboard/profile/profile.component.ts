@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   showErrorAlert = false;
   successMessage = '';
   form1Loading = false;
+  errors: any = {};
 
   constructor(
     private adressService: AdressService,
@@ -37,10 +38,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.currentUser.subscribe((user) => {
       this.user = user;
+      this.adress = {
+        properties: this.user.adress,
+      };
     });
-    this.adress = {
-      properties: this.user.adress,
-    };
   }
 
   search = (text$: Observable<string>) => {
@@ -65,6 +66,7 @@ export class ProfileComponent implements OnInit {
       .updateAdress(this.adress.properties, this.user.id)
       .subscribe(
         (user) => {
+          console.log(user);
           this.loginService.updateCurrentUser(user);
           this.isLoading = false;
           this.successMessage = 'Succès!';
@@ -78,7 +80,9 @@ export class ProfileComponent implements OnInit {
           setTimeout(() => {
             this.showErrorAlert = false;
           }, 5000);
-          console.log(error);
+          if (error.status == 422) {
+            this.errors = error.error.errors;
+          }
           this.isLoading = false;
         }
       );
@@ -106,6 +110,7 @@ export class ProfileComponent implements OnInit {
       (error) => {
         this.form1Loading = false;
         this.showErrorAlert = true;
+        this.errors = error.error.errors;
         setTimeout(() => {
           this.showErrorAlert = false;
         }, 5000);

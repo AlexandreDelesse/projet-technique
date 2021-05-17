@@ -16,7 +16,7 @@ class AppointementsController extends Controller
     
     public function store(Campaign $campaign) {
         $data = request()->validate([
-            'date' => 'required|date',
+            'slot' => 'required|date',
             'bloodgroup_id' => 'sometimes|exists:bloodgroups,id'
         ]);
 
@@ -26,9 +26,9 @@ class AppointementsController extends Controller
             ]);
         }
 
-        $campaign->users()->attach(auth()->user()->id, ['date' => $data['date']]);
+        $campaign->users()->attach(auth()->user()->id, ['date' => $data['slot']]);
 
-        auth()->user()->notify(new AppointementCreated($campaign, $data['date']));
+        auth()->user()->notify(new AppointementCreated($campaign, $data['slot']));
 
         return [
             'success' => 'Appointement saved.'
@@ -42,7 +42,7 @@ class AppointementsController extends Controller
                 'success' => 'Appointement canceled.'
             ];
         }
-        if(auth()->user()->campaigns()->contains($campaign->id)) {
+        if($campaign->users->contains(auth()->id())) {
             $campaign->users()->detach($user->id);
             return [
                 'success' => 'Appointement canceled.'

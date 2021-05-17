@@ -17,6 +17,8 @@
             <th>Description</th>
             <th>Du</th>
             <th>Au</th>
+            <th>Commence à</th>
+            <th>Termine à</th>
             <th>Durée créneau</th>
             <th>Adresse</th>
             <th>Crée le</th>
@@ -28,8 +30,12 @@
             <td class="nowrap">{{ campaign.id }}</td>
             <td>{{ campaign.title }}</td>
             <td>{{ campaign.description }}</td>
-            <td class="nowrap">{{ campaign.start_date | date: "medium" }}</td>
-            <td class="nowrap">{{ campaign.end_date | date: "medium" }}</td>
+            <td class="nowrap">
+              {{ campaign.start_date | date: "shortDate" }}
+            </td>
+            <td class="nowrap">{{ campaign.end_date | date: "shortDate" }}</td>
+            <td class="nowrap">{{ campaign.start_time.substr(0, 5) }}</td>
+            <td class="nowrap">{{ campaign.end_time.substr(0, 5) }}</td>
             <td>{{ campaign.slot_duration }}</td>
             <td class="nowrap">{{ campaign.adress.label }}</td>
             <td class="nowrap">{{ campaign.created_at | date: "medium" }}</td>
@@ -49,7 +55,7 @@
                 <a
                   class="text-danger px-1"
                   role="button"
-                  (click)="delete(campaign)"
+                  (click)="open(content, campaign)"
                   title="Supprimer"
                 >
                   <fa-icon [icon]="faTrash"></fa-icon>
@@ -58,18 +64,40 @@
             </td>
           </tr>
         </tbody>
-
-        <tbody *ngIf="campaigns?.length == 0">
-          <tr>
-            <td colspan="3" class="no-data-available">
-              Aucune donnée disponible
-            </td>
-          </tr>
-        </tbody>
       </table>
     </div>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confimer la suppression</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">Voulez-vous vraiment supprimer cette campagne ?</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.dismiss('')"
+    >
+      Non
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="delete(); modal.close('Save click')"
+    >
+      Oui
+    </button>
+  </div>
+</ng-template>
 
 <app-flash-alert
   [show]="showSuccessAlert"

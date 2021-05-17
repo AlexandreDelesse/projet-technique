@@ -4,6 +4,7 @@ import { AppointementService } from '@app/services/appointement.service';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { LoginService } from '@app/services/login/login.service';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-appointments',
@@ -17,10 +18,13 @@ export class AppointmentsComponent implements OnInit {
   user: any;
   showSuccessAlert = false;
   faTrash = faTrash;
+  campaign!: Campaign;
+  user_id!: number;
 
   constructor(
     private loginService: LoginService,
-    private appointmentsService: AppointementService
+    private appointmentsService: AppointementService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -68,17 +72,26 @@ export class AppointmentsComponent implements OnInit {
     );
   }
 
-  cancel(campaign: Campaign, user_id: any) {
-    this.appointmentsService.cancel(campaign.slug, user_id).subscribe(
+  open(content: any, campaign: Campaign, user_id: number) {
+    this.modalService.open(content);
+    this.campaign = campaign;
+    this.user_id = user_id;
+  }
+
+  cancel() {
+    this.appointmentsService.cancel(this.campaign.slug, this.user_id).subscribe(
       () => {
-        let index = campaign?.users.findIndex((item) => item.id == user_id);
+        let index = this.campaigns?.findIndex(
+          (item: Campaign) => item.id == this.campaign.id
+        );
         if (index != undefined && index >= 0) {
-          campaign?.users.splice(index, 1);
+          this.campaigns?.splice(index, 1);
         }
         this.showSuccessAlert = true;
         setTimeout(() => {
           this.showSuccessAlert = false;
         }, 5000);
+        this.loginService.updateCurrentUser(this.user);
       },
       (error: any) => console.log(error)
     );

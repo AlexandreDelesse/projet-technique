@@ -6,6 +6,7 @@ import { AppointementService } from '@app/services/appointement.service';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { LoginService } from '@app/services/login/login.service';
 import { faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { data } from 'jquery';
 import * as moment from 'moment';
 
 @Component({
@@ -16,10 +17,8 @@ import * as moment from 'moment';
 export class ShowComponent implements OnInit {
   campaign: Campaign | undefined;
   isLoading = true;
-  form: any = {
-    bloodgroup_id: null,
-    slot: null,
-  };
+  slot: any;
+  bloodgroup_id = null;
   user: any;
   faMapMarkerAlt = faMapMarkerAlt;
   faCalendar = faCalendar;
@@ -27,6 +26,40 @@ export class ShowComponent implements OnInit {
   showSuccessAlert = false;
   showErrorAlert = false;
   slots: Date[] = [];
+  bloodgroups = [
+    {
+      id: 1,
+      title: 'A+',
+    },
+    {
+      id: 2,
+      title: 'A-',
+    },
+    {
+      id: 3,
+      title: 'B+',
+    },
+    {
+      id: 4,
+      title: 'B-',
+    },
+    {
+      id: 5,
+      title: 'AB+',
+    },
+    {
+      id: 6,
+      title: 'AB-',
+    },
+    {
+      id: 7,
+      title: 'O+',
+    },
+    {
+      id: 8,
+      title: 'O-',
+    },
+  ];
 
   constructor(
     private campaignsService: CampaignService,
@@ -43,6 +76,18 @@ export class ShowComponent implements OnInit {
           this.campaign = campaign;
           this.isLoading = false;
           this.calculateSlots();
+          this.loginService.currentUser.subscribe((user) => {
+            this.user = user;
+            if (user?.bloodgroup_id) {
+              this.bloodgroup_id = this.user.bloodgroup_id;
+            }
+            if (this.user.campaigns) {
+              this.alreadyBooked =
+                this.user.campaigns.findIndex(
+                  (item: Campaign) => item.id == this.campaign?.id
+                ) != -1;
+            }
+          });
         },
         (error) => {
           console.log(error);
@@ -50,16 +95,6 @@ export class ShowComponent implements OnInit {
         }
       );
     }
-    this.loginService.currentUser.subscribe((user) => {
-      this.user = user;
-      this.form.bloodgroup_id = this.user.bloodgroup_id;
-      if (this.user.campaigns) {
-        this.alreadyBooked =
-          this.user.campaigns.findIndex(
-            (item: { id: number | undefined }) => item.id == this.campaign?.id
-          ) != -1;
-      }
-    });
   }
 
   calculateSlots() {
@@ -95,18 +130,25 @@ export class ShowComponent implements OnInit {
   }
 
   onSubmit() {
-    this.form.date = moment(this.form.date).format('YYYY-MM-DD hh:mm');
-    this.appointmentsService.store(this.campaign?.slug, this.form).subscribe(
+    this.slot = moment(this.slot).format('YYYY-MM-DD hh:mm');
+    let data: any = {
+      slot: this.slot,
+    };
+    if (this.bloodgroup_id) {
+      data.bloodgroup_id = this.bloodgroup_id;
+    }
+    this.appointmentsService.store(this.campaign?.slug, data).subscribe(
       () => {
         this.alreadyBooked = true;
         this.showSuccessAlert = true;
         setTimeout(() => {
           this.showSuccessAlert = false;
         }, 5000);
-        if (this.form.bloodgroup_id != null) {
-          this.user.bloodgroup_id = this.form.bloodgroup_id;
-          this.loginService.updateCurrentUser(this.user);
+        this.user.campaigns.push(this.campaign);
+        if (this.bloodgroup_id) {
+          this.user.bloodgroup_id = this.bloodgroup_id;
         }
+        this.loginService.updateCurrentUser(this.user);
       },
       (error) => {
         this.showErrorAlert = true;

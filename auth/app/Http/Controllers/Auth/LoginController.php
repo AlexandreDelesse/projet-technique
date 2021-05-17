@@ -53,7 +53,7 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Successfully logged in.',
             'key' => $key,
-            'user' => $request->user()->refresh()->load('campaigns')
+            'user' => $request->user()->refresh()->load(['campaigns', 'adress'])
         ], 201);
     }
 }

@@ -41,4 +41,8 @@ export class UserService {
       }),
     });
   }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/users/${id}`);
+  }
 }

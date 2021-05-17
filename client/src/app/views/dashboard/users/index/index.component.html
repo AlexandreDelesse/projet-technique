@@ -59,7 +59,7 @@
             </td>
             <td class="nowrap">{{ user.created_at | date: "medium" }}</td>
             <td class="actions">
-              <div class="d-flex">
+              <div class="d-flex" *ngIf="this.currentUser.id != user.id">
                 <a
                   class="text-success px-1"
                   role="button"
@@ -68,18 +68,15 @@
                 >
                   <fa-icon [icon]="faPen"></fa-icon>
                 </a>
-                <a class="text-danger px-1" role="button" title="Supprimer">
+                <a
+                  class="text-danger px-1"
+                  (click)="open(content, user)"
+                  role="button"
+                  title="Supprimer"
+                >
                   <fa-icon [icon]="faTrash"></fa-icon>
                 </a>
               </div>
-            </td>
-          </tr>
-        </tbody>
-
-        <tbody *ngIf="users?.length == 0">
-          <tr>
-            <td colspan="3" class="no-data-available">
-              Aucune donnée disponible
             </td>
           </tr>
         </tbody>
@@ -87,6 +84,37 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confimer la suppression</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">Voulez-vous vraiment supprimer cet utilisateur ?</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="modal.dismiss('')"
+    >
+      Non
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="delete(); modal.close('Save click')"
+    >
+      Oui
+    </button>
+  </div>
+</ng-template>
 
 <app-flash-alert
   [show]="showSuccessAlert"

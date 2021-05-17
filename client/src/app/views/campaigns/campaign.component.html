@@ -34,7 +34,8 @@
               </span>
               <span class="campaign-meta">
                 <fa-icon [icon]="faCalendar" [classes]="['mr-1']"></fa-icon>
-                {{ campaign.start_date | date: "medium" }}
+                Du {{ campaign.start_date | date: "shortDate" }} au
+                {{ campaign.end_date | date: "shortDate" }}
               </span>
             </div>
             <p class="campaign-description">

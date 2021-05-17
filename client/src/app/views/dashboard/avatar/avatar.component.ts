@@ -14,6 +14,7 @@ export class AvatarComponent implements OnInit {
   isLoading = false;
   showSuccessAlert = false;
   showErrorAlert = false;
+  errors: any = {};
 
   constructor(
     private loginService: LoginService,
@@ -48,8 +49,8 @@ export class AvatarComponent implements OnInit {
                 this.showSuccessAlert = false;
               }, 5000);
             },
-            (error) => {
-              console.log(error);
+            ({ error }) => {
+              this.errors = error.errors;
               this.isLoading = false;
               this.showErrorAlert = true;
               setTimeout(() => {
@@ -58,8 +59,8 @@ export class AvatarComponent implements OnInit {
             }
           );
       },
-      (error) => {
-        console.log(error);
+      ({ error }) => {
+        this.errors = error.errors;
         this.isLoading = false;
       }
     );

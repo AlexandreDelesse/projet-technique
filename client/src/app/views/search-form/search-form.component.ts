@@ -22,7 +22,6 @@ export class SearchFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.queryParamMap.get('city'));
     if (this.route.snapshot.queryParamMap.get('city')) {
       this.city = {
         nom: this.route.snapshot.queryParamMap.get('city'),

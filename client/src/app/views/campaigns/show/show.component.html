@@ -31,38 +31,20 @@
 
       <form (ngSubmit)="onSubmit()" *ngIf="!alreadyBooked">
         <div class="form-row mb-3">
-          <label for="blood" class="col-sm-3 col-form-label"
+          <label for="bloodgroup_id" class="col-sm-3 col-form-label"
             >Groupe sanguin</label
           >
           <div class="col-sm-9">
             <select
               class="form-control"
-              id="blood"
-              name="blood"
-              required
-              [(ngModel)]="form.bloodgroup_id"
-              #blood="ngModel"
+              id="bloodgroup_id"
+              name="bloodgroup_id"
+              [(ngModel)]="bloodgroup_id"
             >
-              <option [ngValue]="null" disabled>
-                Séléctionnez votre groupe sanguin
+              <option *ngFor="let blood of bloodgroups" [value]="blood.id">
+                {{ blood.title }}
               </option>
-              <option value="1">A <sup>+</sup></option>
-              <option value="2">A <sup>-</sup></option>
-              <option value="3">B <sup>+</sup></option>
-              <option value="4">B <sup>-</sup></option>
-              <option value="5">AB <sup>+</sup></option>
-              <option value="6">AB <sup>-</sup></option>
-              <option value="8">O <sup>+</sup></option>
-              <option value="9">O <sup>-</sup></option>
             </select>
-            <small
-              class="form-help text-danger"
-              *ngIf="blood.invalid && (blood.dirty || blood.touched)"
-            >
-              <span *ngIf="blood.errors && blood.errors.required">
-                Le groupe sanguin est obligatoire.
-              </span>
-            </small>
           </div>
         </div>
         <div class="form-row mb-3">
@@ -71,21 +53,22 @@
             <select
               class="form-control"
               id="slot"
-              name="blood"
+              name="slot"
               required
-              [(ngModel)]="form.slot"
-              #slot="ngModel"
+              [(ngModel)]="slot"
+              #slotInput="ngModel"
             >
-              <option [ngValue]="null" disabled>Séléctionnez un créneau</option>
               <option *ngFor="let slot of slots" [value]="slot">
                 {{ slot | date: "short" }}
               </option>
             </select>
             <small
               class="form-help text-danger"
-              *ngIf="slot.invalid && (slot.dirty || slot.touched)"
+              *ngIf="
+                slotInput.invalid && (slotInput.dirty || slotInput.touched)
+              "
             >
-              <span *ngIf="slot.errors && slot.errors.required">
+              <span *ngIf="slotInput.errors && slotInput.errors.required">
                 Veuillez choisir un créneau.
               </span>
             </small>

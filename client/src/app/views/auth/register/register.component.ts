@@ -33,14 +33,10 @@ export class RegisterComponent implements OnInit {
     this.isLoading = true;
     this.loginService.register(this.user).subscribe(
       ({ body }) => {
-        let userStr = JSON.stringify(body.user);
-        let user = new User();
         localStorage.setItem('apiKey', body.key);
-        localStorage.setItem('user', userStr);
         this.isLoading = false;
         this.router.navigate(['/']);
-        Object.assign(user, JSON.parse(userStr));
-        this.loginService.updateCurrentUser(user);
+        this.loginService.updateCurrentUser(body.user);
       },
       ({ error }) => {
         this.errors = error.errors;

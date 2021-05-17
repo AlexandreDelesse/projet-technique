@@ -50,8 +50,8 @@ export class LoginService {
   }
 
   logout() {
+    this.updateCurrentUser(null);
     localStorage.removeItem('apiKey');
     localStorage.removeItem('user');
-    this.updateCurrentUser(null);
   }
 }

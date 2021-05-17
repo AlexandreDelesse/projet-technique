@@ -17,7 +17,11 @@
           type="file"
           class="form-control-file"
           (change)="onChange($event)"
+          (keydown)="errors.file = []"
         />
+        <small class="form-help text-danger" *ngIf="errors.file">
+          {{ errors.file[0] }}
+        </small>
       </div>
       <span class="text-helper">Type de fichier: JPG, PNG, WEBP or GIF.</span>
       <div class="form-group mt-3">
