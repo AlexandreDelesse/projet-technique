@@ -87,6 +87,12 @@ export class AppointmentsComponent implements OnInit {
         if (index != undefined && index >= 0) {
           this.campaigns?.splice(index, 1);
         }
+        index = this.user.campaigns.findIndex(
+          (item: Campaign) => item.id == this.campaign.id
+        );
+        if (index != undefined && index >= 0) {
+          this.user.campaigns.splice(index, 1);
+        }
         this.showSuccessAlert = true;
         setTimeout(() => {
           this.showSuccessAlert = false;

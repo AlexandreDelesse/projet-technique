@@ -21,7 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'google_calendar_token',
-        'google_calendar_api_activated'
+        'google_calendar_api_activated',
+        'bloodgroup_id'
     ];
 
     /**

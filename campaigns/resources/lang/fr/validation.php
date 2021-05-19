@@ -176,6 +176,7 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
-        'current_password'      => 'mot de passe actuel'
+        'current_password'      => 'mot de passe actuel',
+        'slot'                  => 'créneau'
     ],
 ];

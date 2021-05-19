@@ -2,10 +2,23 @@
   <div class="collapse navbar-collapse">
     <div class="navbar-nav">
       <div class="nav-item px-2">
-        <a class="nav-link" aria-current="page" routerLink="">Accueil</a>
+        <a
+          class="nav-link"
+          aria-current="page"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="'/'"
+          >Accueil</a
+        >
       </div>
       <div class="nav-item px-2">
-        <a class="nav-link" aria-current="page" routerLink="campaigns">
+        <a
+          class="nav-link"
+          aria-current="page"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="'/campaigns'"
+        >
           Campagnes
         </a>
       </div>
@@ -55,16 +68,16 @@
           href="#"
           (click)="logout($event)"
           class="text-primary"
-          >Logout</a
+          >Se déconnecter</a
         >
       </div>
     </div>
   </div>
   <ng-template #guest>
     <div class="d-flex auth-btns">
-      <a routerLink="register" role="button" class="btn btn-link">Register</a>
+      <a routerLink="register" role="button" class="btn btn-link">S'inscrire</a>
       <a routerLink="login" role="button" class="btn btn-outline-primary">
-        Login
+        Se connecter
       </a>
     </div>
   </ng-template>

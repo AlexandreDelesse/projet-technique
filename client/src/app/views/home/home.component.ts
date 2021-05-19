@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Campaign } from '@app/models/campaign';
 import { AdressService } from '@app/services/adress.service';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
-import { faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faClock, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   campaigns?: Campaign[];
   faMapMarkerAlt = faMapMarkerAlt;
   faCalendar = faCalendar;
+  faClock = faClock
 
   constructor(
     private adressService: AdressService,

@@ -11,6 +11,10 @@
     &:hover {
       color: $text-primary;
     }
+
+    &.active {
+      color: $primary;
+    }
   }
 
   .auth-btns {

@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CampaignService } from '@app/services/campaigns/campaigns.service';
 import { Campaign } from '@app/models/campaign';
-import { faCalendar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faClock,
+  faMapMarkerAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -32,6 +36,7 @@ export class CampaignComponent implements OnInit, OnDestroy {
 
   faMapMarkerAlt = faMapMarkerAlt;
   faCalendar = faCalendar;
+  faClock = faClock;
 
   ngOnInit(): void {
     this.getCampaigns();

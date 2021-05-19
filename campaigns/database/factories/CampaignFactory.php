@@ -23,11 +23,16 @@ class CampaignFactory extends Factory
     public function definition()
     {
         $title = $this->faker->sentence;
+        $date = $this->faker->date;
         return [
             'title' =>$title,
             'slug' => Str::slug($title),
             'description' => $this->faker->text,
-            'capacity' => $this->faker->randomDigit
+            'slot_duration' => $this->faker->numberBetween(0, 60),
+            'start_date' => $date,
+            'end_date' => $date,
+            'start_time' => '08:00',
+            'end_time' => '17:00',
         ];
     }
 }

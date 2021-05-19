@@ -28,7 +28,7 @@
         <tbody *ngIf="campaigns?.length != 0">
           <tr *ngFor="let campaign of campaigns">
             <td class="nowrap">{{ campaign.id }}</td>
-            <td>{{ campaign.title }}</td>
+            <td class="nowrap">{{ campaign.title }}</td>
             <td>{{ campaign.description }}</td>
             <td class="nowrap">
               {{ campaign.start_date | date: "shortDate" }}

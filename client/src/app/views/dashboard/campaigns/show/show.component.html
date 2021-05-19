@@ -84,8 +84,8 @@
           <tr *ngFor="let user of campaign.users">
             <td class="nowrap">{{ user.firstname }} {{ user.lastname }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.bloodgroup.title }}</td>
-            <td class="nowrap">{{ user.pivot.date }}</td>
+            <td>{{ user.bloodgroup?.title }}</td>
+            <td class="nowrap">{{ user.pivot.date | date: "short" }}</td>
             <td class="actions">
               <div class="d-flex">
                 <a

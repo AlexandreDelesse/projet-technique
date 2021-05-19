@@ -27,25 +27,39 @@
               </div>
             </div>
             <div class="campaign-details">
+              <div class="campaign-info">
+                <span>
+                  <fa-icon
+                    [icon]="faCalendar"
+                    [classes]="['mr-1', 'icon']"
+                  ></fa-icon>
+                  {{ campaign.start_date | date: "shortDate" }} -
+                  {{ campaign.end_date | date: "shortDate" }}
+                </span>
+              </div>
               <h5 class="campaign-title">
                 {{ campaign.title }}
               </h5>
-              <div class="campaign-metas">
-                <span class="campaign-meta pr-2">
-                  <fa-icon
-                    [icon]="faMapMarkerAlt"
-                    [classes]="['mr-1']"
-                  ></fa-icon>
-                  {{ campaign.adress.city }}
-                </span>
-                <span class="campaign-meta">
-                  <fa-icon [icon]="faCalendar" [classes]="['mr-1']"></fa-icon>
-                  {{ campaign.start_date | date: "longDate" }}
-                </span>
-              </div>
               <p class="campaign-description">
                 {{ campaign.description }}
               </p>
+              <div class="campaign-info">
+                <span class="campaign-meta pr-2">
+                  <fa-icon
+                    [icon]="faClock"
+                    [classes]="['mr-1', 'icon']"
+                  ></fa-icon>
+                  {{ campaign.start_time.substr(0, 5) }} -
+                  {{ campaign.end_time.substr(0, 5) }}
+                </span>
+                <span class="campaign-meta pr-2">
+                  <fa-icon
+                    [icon]="faMapMarkerAlt"
+                    [classes]="['mr-1', 'icon']"
+                  ></fa-icon>
+                  {{ campaign.adress.city }}
+                </span>
+              </div>
             </div>
           </a>
         </div>

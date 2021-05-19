@@ -29,7 +29,7 @@
 
       <h3 class="campaign-title">Prendre rendez-vous</h3>
 
-      <form (ngSubmit)="onSubmit()" *ngIf="!alreadyBooked">
+      <form (ngSubmit)="onSubmit()" *ngIf="!alreadyBooked && user">
         <div class="form-row mb-3">
           <label for="bloodgroup_id" class="col-sm-3 col-form-label"
             >Groupe sanguin</label
@@ -40,11 +40,25 @@
               id="bloodgroup_id"
               name="bloodgroup_id"
               [(ngModel)]="bloodgroup_id"
+              #blood="ngModel"
+              required
+              (keydown)="errors.bloodgroup_id = []"
             >
               <option *ngFor="let blood of bloodgroups" [value]="blood.id">
                 {{ blood.title }}
               </option>
             </select>
+            <small class="form-help text-danger" *ngIf="errors.bloodgroup_id">
+              {{ errors.bloodgroup_id[0] }}
+            </small>
+            <small
+              class="form-help text-danger"
+              *ngIf="blood.invalid && (blood.dirty || blood.touched)"
+            >
+              <span *ngIf="blood.errors && blood.errors.required">
+                Veuillez séléctionner votre groupe sanguin.
+              </span>
+            </small>
           </div>
         </div>
         <div class="form-row mb-3">
@@ -57,11 +71,15 @@
               required
               [(ngModel)]="slot"
               #slotInput="ngModel"
+              (keydown)="errors.slot = []"
             >
               <option *ngFor="let slot of slots" [value]="slot">
                 {{ slot | date: "short" }}
               </option>
             </select>
+            <small class="form-help text-danger" *ngIf="errors.slot">
+              {{ errors.slot[0] }}
+            </small>
             <small
               class="form-help text-danger"
               *ngIf="
@@ -76,8 +94,19 @@
         </div>
 
         <div class="form-row mt-5 mb-3 justify-content-center">
-          <button class="btn btn-primary" type="submit">
-            Prendre rendez-vous
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="isLoading || slotInput.invalid || blood.invalid"
+          >
+            <span *ngIf="!isLoading">Prendre rendez-vous</span>
+            <div
+              class="spinner-border spinner-border-sm"
+              role="status"
+              *ngIf="isLoading"
+            >
+              <span class="sr-only">Chargement ...</span>
+            </div>
           </button>
         </div>
       </form>
@@ -85,6 +114,11 @@
       <p *ngIf="alreadyBooked">
         Vous avez déja réservé un rendez-vous.
         <a routerLink="/dashboard/my-appointments">Gérer mes rendez-vous.</a>
+      </p>
+
+      <p *ngIf="user == null">
+        Veuillez vous connecter pour prendre un rendez-vous.
+        <a routerLink="/login">Se connecter.</a>
       </p>
     </div>
 

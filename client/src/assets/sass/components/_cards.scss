@@ -61,7 +61,10 @@
         color: $text-secondary;
       }
 
-      .campaign-metas {
+      .campaign-info {
+        .icon {
+          color: $primary;
+        }
         margin: 25px 0;
         font-size: 0.875rem;
         color: $text-secondary;

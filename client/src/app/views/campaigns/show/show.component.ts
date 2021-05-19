@@ -26,6 +26,7 @@ export class ShowComponent implements OnInit {
   showSuccessAlert = false;
   showErrorAlert = false;
   slots: Date[] = [];
+  errors: any = {};
   bloodgroups = [
     {
       id: 1,
@@ -77,15 +78,17 @@ export class ShowComponent implements OnInit {
           this.isLoading = false;
           this.calculateSlots();
           this.loginService.currentUser.subscribe((user) => {
-            this.user = user;
-            if (user?.bloodgroup_id) {
-              this.bloodgroup_id = this.user.bloodgroup_id;
-            }
-            if (this.user.campaigns) {
-              this.alreadyBooked =
-                this.user.campaigns.findIndex(
-                  (item: Campaign) => item.id == this.campaign?.id
-                ) != -1;
+            if (user) {
+              this.user = user;
+              if (this.user?.bloodgroup_id) {
+                this.bloodgroup_id = this.user.bloodgroup_id;
+              }
+              if (this.user.campaigns) {
+                this.alreadyBooked =
+                  this.user.campaigns.findIndex(
+                    (item: Campaign) => item.id == this.campaign?.id
+                  ) != -1;
+              }
             }
           });
         },
@@ -126,11 +129,22 @@ export class ShowComponent implements OnInit {
           i.minute(start_time.minutes);
         }
       }
+      this.campaign.users.forEach((item) => {
+        let index = this.slots.findIndex(
+          (slot) => slot.getTime() == new Date(item.pivot.date).getTime()
+        );
+        if (index != -1) {
+          this.slots.splice(index, 1);
+        }
+      });
     }
   }
 
   onSubmit() {
-    this.slot = moment(this.slot).format('YYYY-MM-DD hh:mm');
+    this.isLoading = true;
+    if (this.slot) {
+      this.slot = moment(this.slot).format('YYYY-MM-DD hh:mm');
+    }
     let data: any = {
       slot: this.slot,
     };
@@ -149,13 +163,18 @@ export class ShowComponent implements OnInit {
           this.user.bloodgroup_id = this.bloodgroup_id;
         }
         this.loginService.updateCurrentUser(this.user);
+        this.isLoading = false;
       },
       (error) => {
-        this.showErrorAlert = true;
-        setTimeout(() => {
-          this.showErrorAlert = false;
-        }, 5000);
-        console.log(error);
+        if (error.status == 422) {
+          this.errors = error.error.errors;
+        } else {
+          this.showErrorAlert = true;
+          setTimeout(() => {
+            this.showErrorAlert = false;
+          }, 5000);
+        }
+        this.isLoading = false;
       }
     );
   }
