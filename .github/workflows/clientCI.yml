@@ -45,7 +45,7 @@ jobs:
     - name: run test
       run: |
         cd client
-        npm run test --watch=false
+        npm run ci:test
         
     - name: run build
       run: |
