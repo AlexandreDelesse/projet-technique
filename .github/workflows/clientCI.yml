@@ -40,7 +40,7 @@ jobs:
     - name: install dependenties
       run: |
         cd client
-        npm install
+        npm ci
     
     - name: run test
       run: |
