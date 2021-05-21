@@ -41,6 +41,11 @@ jobs:
       run: |
         cd client
         npm install
+    
+    - name: run test
+      run: |
+        cd client
+        npm run test
         
     - name: run build
       run: |
