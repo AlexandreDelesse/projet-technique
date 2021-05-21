@@ -3,6 +3,7 @@
 namespace App\Http\Helpers;
 
 use Exception;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class Kong 
@@ -34,7 +35,7 @@ class Kong
         }
         $data = [
             'username' => $username,
-            'custom_id' => $custom_id
+            'custom_id' => Hash::make('custom_id')
         ];
  
         $response =  Http::post(self::KONG_URL . '/consumers', $data);

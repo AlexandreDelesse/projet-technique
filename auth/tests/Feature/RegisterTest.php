@@ -40,9 +40,7 @@ class RegisterTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory([
-            'id' => 9999999 
-        ])->make(); 
+        $user = User::factory()->make(); 
 
         $response = $this->postJson(
             route('register'), 

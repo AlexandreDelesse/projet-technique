@@ -18,10 +18,13 @@ class CreateCampaignsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->text('location');
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
-            $table->unsignedInteger('capacity');
+            $table->foreignId('adress_id')->nullable()->constrained();
+            $table->foreignId('file_id')->nullable()->constrained();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->unsignedInteger('slot_duration');
             $table->timestamps();
         });
     }

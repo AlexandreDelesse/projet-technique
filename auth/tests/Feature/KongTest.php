@@ -16,7 +16,6 @@ class KongTest extends TestCase
     /** @test */
     public function it_should_retreive_consumers()
     {
-
         $response = Kong::consumers();
     
         $this->assertEquals(200, $response->status());

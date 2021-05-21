@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Adress;
+use App\Models\Bloodgroup;
 use App\Models\Campaign;
 use App\Models\File;
 use App\Models\User;
@@ -21,6 +22,9 @@ class AppointmentsTest extends TestCase
 
         $user = User::factory()->create();
         $this->actingAs($user);
+        $bloodgroup = Bloodgroup::create([
+            'title' => 'A+'
+        ]);
 
         $campaign = Campaign::create([
             'title' => 'test title',
@@ -46,7 +50,8 @@ class AppointmentsTest extends TestCase
         $response = $this->postJson(
             route('appointments.store', $campaign->slug),
             [
-                'slot' => '2021-02-01 08:50'
+                'slot' => '2021-02-01 08:50',
+                'bloodgroup_id' => $bloodgroup->id
             ]
         );
         $response->assertStatus(200);

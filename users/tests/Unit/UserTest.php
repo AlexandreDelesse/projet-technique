@@ -7,18 +7,13 @@ use App\Models\Campaign;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CampaignTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
-    
-    /** @test */
-    public function it_has_a_path() {
-        $campaign = Campaign::factory()->create();
-        $this->assertEquals('/campaigns/' . $campaign->slug, $campaign->path());
-    }
 
     /** @test */
-    public function it_has_an_adress() {
+    public function a_user_have_an_adress()
+    {
         $this->withoutExceptionHandling();
         $campaign = Campaign::factory()->create();
         $adress = Adress::create([

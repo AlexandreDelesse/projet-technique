@@ -21,8 +21,8 @@ class CreateAdressesTable extends Migration
             $table->string('city');
             $table->string('street');
             $table->float('importance');
-            $table->float('x');
-            $table->float('y');
+            $table->double('x');
+            $table->double('y');
             $table->timestamps();
         });
     }

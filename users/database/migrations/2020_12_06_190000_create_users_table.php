@@ -18,7 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthdate')->nullable();
-            $table->text('adress')->nullable();
             $table->string('phone')->nullable();
             $table->foreignId('bloodgroup_id')->nullable()->constrained()->onCascade('set null');
             $table->unsignedInteger('type')->default(0);
@@ -26,8 +25,11 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->foreignId('adress_id')->nullable()->constrained()->onCascade('set null');
+            $table->boolean('receive_emails')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->json('google_calendar_token')->nullable();
+            $table->boolean('google_calendar_api_activated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

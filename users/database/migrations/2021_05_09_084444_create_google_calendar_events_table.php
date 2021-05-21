@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCampaignUserTable extends Migration
+class CreateGoogleCalendarEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCampaignUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('campaign_user', function (Blueprint $table) {
-            $table->foreignId('campaign_id')->constrained();
+        Schema::create('google_calendar_events', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->timestamp('date');
-
-            $table->primary(['campaign_id', 'user_id']);
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
+            $table->string('location');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateCampaignUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campaign_user');
+        Schema::dropIfExists('google_calendar_events');
     }
 }
